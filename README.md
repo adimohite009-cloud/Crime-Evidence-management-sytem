@@ -2,6 +2,10 @@
 
 This folder contains the browser prototype and its SLA Stage 3 report.
 
+**Live prototype:** https://adimohite009-cloud.github.io/Crime-Evidence-management-sytem/
+
+**Report:** [SLA Stage 3 Prototype Report](SLA3_Report_Crime_Management_System.md)
+
 ## Open the prototype
 
 Open `index.html` in a modern browser. The page uses fictional sample cases. Added and edited records are saved in that browser's local storage.
