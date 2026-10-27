@@ -1,114 +1,3630 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#101916">
-  <title>Case Register — Crime &amp; Evidence Records</title>
+  <meta name="description" content="Crime Evidence Management System — Data Structure Linked List Implementation">
+  <title>Crime Evidence Management System — Investigation &amp; Case Records</title>
   <style>
-    :root{--bg:#f4f5f1;--paper:#fff;--ink:#17211e;--muted:#737d77;--line:#e3e7e1;--green:#176b50;--green2:#e4f2eb;--lime:#d7f36a;--amber:#a86518;--amber-bg:#fff4df;--red:#b8483c;--shadow:0 14px 40px #17211e0d;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink)}button,input,select,textarea{font:inherit}button{cursor:pointer}.shell{min-height:100vh}.sidebar{position:fixed;inset:0 auto 0 0;width:242px;background:#101916;color:#e9f0eb;padding:25px 18px;display:flex;flex-direction:column;z-index:3}.brand{display:flex;gap:11px;align-items:center;padding:0 8px 27px;border-bottom:1px solid #ffffff17}.brand-mark{width:34px;height:34px;border-radius:11px;background:var(--lime);color:#142019;display:grid;place-items:center;font-size:19px;font-weight:800}.brand strong{letter-spacing:-.03em;font-size:17px}.brand small{display:block;color:#95a49a;font-size:10px;letter-spacing:.11em;text-transform:uppercase;margin-top:2px}.nav-label{color:#77867b;font-size:10px;text-transform:uppercase;letter-spacing:.13em;padding:25px 10px 9px}.nav{display:grid;gap:4px}.nav button{border:0;color:#aebbb1;background:transparent;text-align:left;border-radius:9px;padding:11px 12px;display:flex;align-items:center;gap:12px;font-size:13px}.nav button .ico{width:17px;text-align:center;font-size:15px}.nav button:hover,.nav button.active{background:#ffffff12;color:#fff}.nav button.active{box-shadow:inset 3px 0 var(--lime)}.side-bottom{margin-top:auto;border-top:1px solid #ffffff17;padding:16px 9px 0;color:#90a096;font-size:11px;line-height:1.55}.side-bottom strong{color:#eaf0eb;display:block;font-size:12px;margin-bottom:3px}.main{margin-left:242px;min-height:100vh}.topbar{height:70px;background:#ffffffc9;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 38px;position:sticky;top:0;z-index:2;backdrop-filter:blur(10px)}.crumb{font-size:12px;color:var(--muted)}.crumb b{color:var(--ink);font-weight:600}.top-right{display:flex;align-items:center;gap:12px}.live{font-size:11px;color:#5c6b62;display:flex;align-items:center;gap:7px}.dot{width:7px;height:7px;background:#4caa72;border-radius:50%;box-shadow:0 0 0 3px #4caa7220}.avatar{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;background:#dce9df;color:#325744;font-weight:700;font-size:11px}.content{max-width:1320px;padding:33px 38px 58px;margin:auto}.heading{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px}.eyebrow{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);font-weight:700}.heading h1{margin:7px 0 5px;font-size:27px;letter-spacing:-.045em}.heading p{margin:0;color:var(--muted);font-size:13px}.button{border:1px solid var(--line);background:var(--paper);padding:10px 14px;border-radius:8px;font-weight:600;font-size:12px;color:var(--ink);display:inline-flex;align-items:center;gap:8px}.button:hover{border-color:#aebbb1;transform:translateY(-1px)}.button.primary{background:var(--green);border-color:var(--green);color:white}.button.primary:hover{background:#10573f}.button.danger{color:var(--red);border-color:#efd7d4;background:#fff}.button.small{padding:7px 10px;font-size:11px}.button.ghost{border-color:transparent;background:transparent;color:var(--muted)}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:17px}.stat{background:var(--paper);border:1px solid var(--line);border-radius:11px;padding:16px 17px;box-shadow:var(--shadow)}.stat-top{display:flex;justify-content:space-between;color:var(--muted);font-size:11px}.stat-icon{width:25px;height:25px;display:grid;place-items:center;border-radius:7px;background:var(--green2);color:var(--green)}.stat-value{font-size:25px;letter-spacing:-.04em;font-weight:650;margin-top:10px}.stat-foot{font-size:10px;color:var(--muted);margin-top:3px}.stat-foot span{color:var(--green);font-weight:600}.workspace{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:15px;align-items:start}.panel{background:var(--paper);border:1px solid var(--line);border-radius:11px;box-shadow:var(--shadow);overflow:hidden}.panel-head{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.panel-head h2{font-size:13px;margin:0;letter-spacing:-.01em}.panel-head p{margin:4px 0 0;color:var(--muted);font-size:10px}.count{padding:4px 8px;border-radius:20px;background:#f1f4ef;color:#617067;font-size:10px}.table-tools{display:flex;gap:8px;padding:13px 17px}.searchbox{flex:1;position:relative}.searchbox input{padding-left:31px}.search-icon{position:absolute;left:10px;top:8px;color:#87928a}.input,.select,textarea{width:100%;border:1px solid #dfe5de;background:#fff;border-radius:7px;padding:8px 10px;font-size:11px;outline:none;color:var(--ink)}.input:focus,.select:focus,textarea:focus{border-color:#6fa389;box-shadow:0 0 0 3px #176b5012}.select{width:auto;min-width:112px}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;white-space:nowrap}thead th{font-size:9px;text-transform:uppercase;letter-spacing:.09em;color:#89938b;font-weight:600;background:#fafbf9;text-align:left;padding:10px 16px;border-top:1px solid #f0f2ee;border-bottom:1px solid var(--line)}tbody td{padding:12px 16px;border-bottom:1px solid #eef0ed;font-size:11px}tbody tr:last-child td{border-bottom:0}tbody tr:hover{background:#fbfcfa}.id{font-weight:700;color:var(--green);font-variant-numeric:tabular-nums}.crime{font-weight:600}.sub{display:block;color:var(--muted);font-size:10px;margin-top:3px}.status{display:inline-flex;align-items:center;gap:5px;border-radius:30px;padding:4px 8px;background:#e8f4ec;color:#31724b;font-size:9px}.status::before{content:"";width:5px;height:5px;border-radius:50%;background:#4a9d66}.status.review{background:var(--amber-bg);color:var(--amber)}.status.review::before{background:#d18b32}.actions{display:flex;gap:4px}.empty{padding:37px 20px;text-align:center;color:var(--muted);font-size:12px}.empty strong{display:block;color:var(--ink);margin-bottom:5px}.side-stack{display:grid;gap:14px}.structure{padding:15px 16px}.structure-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.structure-head strong{font-size:12px}.structure-head span{font-size:9px;color:var(--muted)}.node-row{display:flex;align-items:center;gap:7px;margin:8px 0;overflow:hidden}.node{flex:1;min-width:0;border:1px solid #dce5dc;border-radius:8px;padding:8px 9px;background:#fbfdfb;position:relative}.node.head{border-color:#9fcab0;background:#f1faf4}.node-top{display:flex;justify-content:space-between;align-items:center}.node-top strong{font-size:10px;color:var(--green)}.node small{font-size:8px;color:var(--muted)}.node-data{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:9px;color:#68756b;margin-top:4px}.pointer{color:#91a098;font-size:14px;flex:none}.null{font-size:9px;color:#98a19a;font-weight:700;border:1px dashed #d6ddd6;padding:6px;border-radius:5px}.head-tag{font-size:8px;background:var(--green);color:white;padding:3px 5px;border-radius:4px}.structure-note{margin-top:11px;padding:9px 10px;background:#f6f7f4;border-radius:7px;font-size:9px;line-height:1.5;color:#68746b}.structure-note code{color:var(--green);font-weight:700}.activity{padding:5px 16px 12px}.event{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #f0f2ee}.event:last-child{border:0}.event-icon{width:25px;height:25px;border-radius:7px;background:#f1f5f0;color:var(--green);display:grid;place-items:center;font-size:11px;flex:none}.event strong{font-size:10px;display:block}.event small{font-size:9px;color:var(--muted);display:block;margin-top:3px}.modal-backdrop{display:none;position:fixed;inset:0;background:#0a1611a6;z-index:10;align-items:center;justify-content:center;padding:18px}.modal-backdrop.show{display:flex}.modal{background:white;width:min(530px,100%);border-radius:13px;box-shadow:0 30px 80px #0003;overflow:hidden;max-height:92vh;overflow-y:auto}.modal-head{padding:19px 22px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-start}.modal-head h2{font-size:17px;margin:0;letter-spacing:-.03em}.modal-head p{font-size:11px;color:var(--muted);margin:5px 0 0}.close{border:0;background:#f3f5f2;border-radius:6px;width:28px;height:28px;font-size:16px;color:#657168}.form{padding:19px 22px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.field.full{grid-column:1/-1}.field label{font-size:10px;font-weight:650;display:block;margin-bottom:5px}.field textarea{height:65px;resize:vertical}.modal-actions{padding:13px 22px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:8px}.confirm-body{padding:20px 22px;font-size:12px;line-height:1.6;color:#59665d}.confirm-record{background:#f7f8f5;padding:12px;border-radius:8px;margin-top:13px;color:var(--ink)}.toast{position:fixed;right:22px;bottom:22px;background:#14221a;color:white;padding:12px 16px;border-radius:8px;font-size:12px;box-shadow:0 10px 30px #0002;opacity:0;transform:translateY(12px);pointer-events:none;transition:.25s;z-index:20}.toast.show{opacity:1;transform:translateY(0)}.mobile-menu{display:none}.footer-note{text-align:center;color:#89938a;font-size:9px;margin-top:18px}
-    /* A quieter, more editorial visual treatment: warm paper, ink and a single
-       field-note green, instead of the usual glossy admin-template palette. */
-    :root{--bg:#f2f0e9;--paper:#fbfaf6;--ink:#202721;--muted:#76786f;--line:#dfddd3;--green:#315c45;--green2:#e8ede4;--lime:#d8e6bd;--amber:#8b5b28;--amber-bg:#f5ecd9;--red:#9d443a;--shadow:0 2px 8px #302d2210}
-    body{background-color:var(--bg);background-image:radial-gradient(#85836e14 .65px,transparent .65px);background-size:8px 8px}
-    .sidebar{background:#26372e}.brand-mark{border-radius:50%;background:#dce8c8}.brand strong{font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:19px;letter-spacing:-.02em}.brand small{letter-spacing:.08em}.nav button{border-radius:5px}.nav button.active{box-shadow:inset 2px 0 #dce8c8;background:#ffffff10}.topbar{background:#f8f7f1ed}.content{max-width:1440px}.heading{border-bottom:1px solid #d8d6cb;padding-bottom:19px;margin-bottom:18px}.heading h1{font-family:Georgia,"Times New Roman",serif;font-size:34px;font-weight:500;letter-spacing:-.04em}.eyebrow{color:#77755f;letter-spacing:.16em}.heading p{font-size:12px}.button{border-radius:5px}.button.primary{background:#315c45;border-color:#315c45}.button.primary:hover{background:#254a36}.stats{gap:0;background:var(--paper);border:1px solid var(--line);border-radius:7px;margin-bottom:15px;box-shadow:none}.stat{border:0;border-right:1px solid var(--line);border-radius:0;box-shadow:none;background:transparent;padding:13px 16px}.stat:last-child{border-right:0}.stat-icon{background:#edf0e8;color:#49634a;border-radius:4px}.stat-value{font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:28px}.workspace{gap:12px}.panel{border-radius:7px;box-shadow:none;background:var(--paper)}.panel-head{padding:14px 16px;background:#f7f6f0}.panel-head h2{font-size:12px;letter-spacing:.01em}.panel-head p{font-size:10px}.count{border-radius:4px;background:#ecebe3;color:#66675d;letter-spacing:.04em}.table-tools{padding:11px 15px}.input,.select,textarea{border-radius:5px;background:#fffefa;font-size:11px}.input:focus,.select:focus,textarea:focus{border-color:#70876d;box-shadow:0 0 0 2px #315c4515}thead th{background:#f5f4ee;font-size:9px;letter-spacing:.1em}tbody tr:hover{background:#f6f6ef}.id{color:#315c45}.status{border-radius:4px}.node{border-radius:5px;background:#f9faf5}.node.head{border-color:#a5b99e;background:#f0f4e9}.node-top strong{color:#315c45}.head-tag{background:#315c45;border-radius:3px}.structure-note{border-left:2px solid #98ad83;border-radius:0;background:#f4f4ec}.event-icon{border-radius:5px;background:#ecefe7;color:#315c45}.footer-note{font-size:9px;letter-spacing:.01em;color:#77786f}.side-bottom{font-size:10px}.modal{border-radius:8px;background:#fbfaf6}.modal-head h2{font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:20px}.modal-head,.modal-actions{border-color:#e3e1d8}.close{border-radius:4px}.toast{border-radius:5px;background:#26372e}
-    @media(max-width:1050px){.workspace{grid-template-columns:1fr}.side-stack{grid-template-columns:1fr 1fr}.stats{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:700px){.sidebar{width:62px;padding:18px 8px}.brand{padding:0 5px 20px}.brand div:last-child,.nav-label,.nav button span:last-child,.side-bottom{display:none}.brand-mark{width:38px;height:38px}.nav{margin-top:18px}.nav button{justify-content:center;padding:12px 0}.nav button .ico{font-size:17px}.main{margin-left:62px}.topbar{height:58px;padding:0 15px}.content{padding:24px 14px 40px}.heading{align-items:flex-start;gap:12px}.heading h1{font-size:22px}.heading p{max-width:250px;line-height:1.5}.heading>.button{font-size:0;padding:10px}.heading>.button span{font-size:16px}.stats{gap:8px}.stat{padding:12px}.stat-value{font-size:21px}.side-stack{grid-template-columns:1fr}.table-tools{flex-wrap:wrap}.searchbox{flex-basis:100%}tbody td,thead th{padding-left:11px;padding-right:11px}.live{display:none}}
+    /* ==========================================================================
+       THEME VARIABLES & DESIGN SYSTEM
+       Color scheme:
+       - Dark green sidebar: #101916 / #26372e
+       - Lime accent: #d7f36a / #dce8c8
+       - Warm cream/paper background: #f2f0e9 / #fbfaf6
+       - Green primary: #315c45 / #176b50
+       ========================================================================== */
+    :root {
+      --bg: #f2f0e9;
+      --paper: #fbfaf6;
+      --paper-card: #ffffff;
+      --paper-subtle: #f5f4ed;
+      --ink: #1d2520;
+      --ink-secondary: #48544a;
+      --muted: #747f76;
+      --line: #dedcd2;
+      --line-subtle: #eae8dd;
+      
+      --sidebar-bg: #101916;
+      --sidebar-surface: #192721;
+      --sidebar-border: rgba(255, 255, 255, 0.08);
+      --sidebar-text: #e2ebe4;
+      --sidebar-muted: #85968b;
+      
+      --green-primary: #315c45;
+      --green-dark: #214030;
+      --green-light: #e8ede4;
+      --green-accent: #176b50;
+      --lime: #d7f36a;
+      --lime-subtle: #dce8c8;
+      --lime-ink: #1a2814;
+      
+      --amber: #8b5b28;
+      --amber-bg: #fdf6ea;
+      --amber-border: #f4ddb3;
+      --red: #9d443a;
+      --red-bg: #fdf2f1;
+      --red-border: #f4d0cd;
+      --blue: #1e6292;
+      --blue-bg: #eaf3fa;
+      --blue-border: #cbe0f2;
+      --purple: #6c3bb8;
+      --purple-bg: #f5f0fd;
+      --purple-border: #e1d3fa;
+      --gray-badge: #57625b;
+      --gray-badge-bg: #ecefe9;
+
+      --shadow-sm: 0 1px 3px rgba(23, 33, 26, 0.05);
+      --shadow-md: 0 4px 14px rgba(23, 33, 26, 0.07);
+      --shadow-lg: 0 14px 34px rgba(16, 25, 22, 0.11);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --radius-pill: 9999px;
+      
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-serif: Georgia, Cambria, "Times New Roman", serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      min-height: 100vh;
+      background-color: var(--bg);
+      background-image: radial-gradient(#85836e14 0.75px, transparent 0.75px);
+      background-size: 8px 8px;
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    button, input, select, textarea {
+      font: inherit;
+      color: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ==========================================================================
+       APP LAYOUT
+       ========================================================================== */
+    .app-shell {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 260px;
+      flex-shrink: 0;
+      background: var(--sidebar-bg);
+      color: var(--sidebar-text);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      inset: 0 auto 0 0;
+      z-index: 40;
+      overflow-y: auto;
+      border-right: 1px solid var(--sidebar-border);
+      transition: transform 0.25s ease, width 0.25s ease;
+    }
+
+    .sidebar-brand {
+      padding: 22px 20px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--sidebar-border);
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--lime);
+      color: var(--lime-ink);
+      display: grid;
+      place-items: center;
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      box-shadow: 0 4px 12px rgba(215, 243, 106, 0.25);
+    }
+
+    .brand-title {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title strong {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #f3f7f4;
+    }
+
+    .brand-title small {
+      font-size: 10px;
+      color: var(--sidebar-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-top: 2px;
+    }
+
+    .sidebar-nav-section {
+      padding: 16px 14px 8px;
+    }
+
+    .sidebar-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--sidebar-muted);
+      padding: 6px 10px 8px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      color: #b5c4b9;
+      font-size: 13px;
+      font-weight: 500;
+      transition: background 0.15s, color 0.15s;
+      width: 100%;
+      text-align: left;
+    }
+
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: #ffffff;
+    }
+
+    .nav-item.active {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      box-shadow: inset 3px 0 var(--lime);
+      font-weight: 600;
+    }
+
+    .nav-item-icon {
+      width: 18px;
+      height: 18px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      color: #8fa194;
+    }
+
+    .nav-item.active .nav-item-icon,
+    .nav-item:hover .nav-item-icon {
+      color: var(--lime);
+    }
+
+    .nav-item-text {
+      flex: 1;
+    }
+
+    .nav-item-badge {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.1);
+      color: #d1ded5;
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+    }
+
+    .sidebar-cta {
+      padding: 12px 14px;
+    }
+
+    .btn-sidebar-add {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--lime);
+      color: var(--lime-ink);
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.02em;
+      box-shadow: 0 4px 14px rgba(215, 243, 106, 0.2);
+      transition: transform 0.15s, background 0.15s;
+    }
+
+    .btn-sidebar-add:hover {
+      background: #e2fb7c;
+      transform: translateY(-1px);
+    }
+
+    .sidebar-dsa-badge {
+      margin: 8px 14px 14px;
+      padding: 12px;
+      background: rgba(215, 243, 106, 0.07);
+      border: 1px solid rgba(215, 243, 106, 0.18);
+      border-radius: var(--radius-sm);
+      font-size: 11px;
+      line-height: 1.45;
+      color: #c2d6c7;
+    }
+
+    .sidebar-dsa-badge strong {
+      display: block;
+      color: var(--lime);
+      font-size: 11px;
+      margin-bottom: 4px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding: 16px;
+      border-top: 1px solid var(--sidebar-border);
+      font-size: 11px;
+      color: var(--sidebar-muted);
+      line-height: 1.5;
+    }
+
+    .sidebar-footer strong {
+      display: block;
+      color: #e2ece5;
+      font-size: 12px;
+      margin-bottom: 2px;
+    }
+
+    /* MAIN CONTENT */
+    .main-wrapper {
+      flex: 1;
+      margin-left: 260px;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      height: 64px;
+      background: rgba(248, 247, 241, 0.92);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .menu-toggle-btn {
+      display: none;
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--line);
+      background: var(--paper);
+      align-items: center;
+      justify-content: center;
+      color: var(--ink);
+    }
+
+    .breadcrumb {
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .breadcrumb-sep {
+      color: #abb3ad;
+    }
+
+    .breadcrumb-current {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .clock-display {
+      font-size: 11px;
+      color: var(--ink-secondary);
+      font-family: var(--font-mono);
+      padding: 6px 11px;
+      background: rgba(49, 92, 69, 0.08);
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(49, 92, 69, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .clock-pulse {
+      width: 6px;
+      height: 6px;
+      background: #2ea043;
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px rgba(46, 160, 67, 0.2);
+    }
+
+    .btn-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--line);
+      background: var(--paper);
+      color: var(--ink-secondary);
+      display: grid;
+      place-items: center;
+      position: relative;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .btn-icon:hover {
+      background: #fff;
+      border-color: #aebdb2;
+      color: var(--ink);
+    }
+
+    .notification-dot {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 7px;
+      height: 7px;
+      background: var(--red);
+      border-radius: 50%;
+      border: 2px solid var(--paper);
+    }
+
+    .user-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--green-light);
+      color: var(--green-primary);
+      border: 1px solid rgba(49, 92, 69, 0.25);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+    }
+
+    /* CONTENT CONTAINER */
+    .content-area {
+      max-width: 1480px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 28px 32px 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    /* HEADER BANNER */
+    .page-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 20px;
+    }
+
+    .header-titles .eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--green-primary);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .header-titles h1 {
+      font-family: var(--font-serif);
+      font-size: 30px;
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin: 4px 0 6px;
+    }
+
+    .header-titles p {
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 700px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 9px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      color: var(--ink);
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      background: #ffffff;
+      border-color: #abbcb0;
+      transform: translateY(-1px);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary {
+      background: var(--green-primary);
+      border-color: var(--green-primary);
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(49, 92, 69, 0.2);
+    }
+
+    .btn-primary:hover {
+      background: var(--green-dark);
+      border-color: var(--green-dark);
+      color: #ffffff;
+    }
+
+    .btn-accent {
+      background: var(--lime);
+      border-color: #c8e85c;
+      color: var(--lime-ink);
+      font-weight: 700;
+    }
+
+    .btn-accent:hover {
+      background: #e1fb73;
+    }
+
+    .btn-danger {
+      background: var(--red-bg);
+      border-color: var(--red-border);
+      color: var(--red);
+    }
+
+    .btn-danger:hover {
+      background: #fae4e2;
+      border-color: #e5b3af;
+    }
+
+    .btn-sm {
+      padding: 6px 10px;
+      font-size: 11px;
+    }
+
+    .btn-xs {
+      padding: 4px 8px;
+      font-size: 10px;
+      border-radius: 4px;
+    }
+
+    .btn-ghost {
+      border-color: transparent;
+      background: transparent;
+      color: var(--muted);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(0, 0, 0, 0.04);
+      color: var(--ink);
+      border-color: transparent;
+    }
+
+    /* STATS ROW */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .stat-card {
+      padding: 16px 20px;
+      border-right: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: background 0.15s;
+    }
+
+    .stat-card:last-child {
+      border-right: none;
+    }
+
+    .stat-card:hover {
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    .stat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .stat-icon-box {
+      width: 26px;
+      height: 26px;
+      border-radius: var(--radius-sm);
+      background: var(--green-light);
+      color: var(--green-primary);
+      display: grid;
+      place-items: center;
+    }
+
+    .stat-number {
+      font-family: var(--font-serif);
+      font-size: 30px;
+      font-weight: 500;
+      color: var(--ink);
+      letter-spacing: -0.03em;
+      margin: 10px 0 6px;
+    }
+
+    .stat-trend {
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--muted);
+    }
+
+    .stat-trend.positive {
+      color: var(--green-accent);
+      font-weight: 600;
+    }
+
+    .stat-trend.warning {
+      color: var(--amber);
+      font-weight: 600;
+    }
+
+    /* WORKSPACE GRID */
+    .workspace-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 350px;
+      gap: 20px;
+      align-items: start;
+    }
+
+    /* PANELS */
+    .panel {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .panel-header {
+      padding: 16px 20px;
+      background: var(--paper-subtle);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .panel-header-title h2 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-header-title p {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .badge-tag {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      background: #ecebe2;
+      color: var(--ink-secondary);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    /* TABLE TOOLS & FILTERS */
+    .table-toolbar {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      background: #faf9f3;
+    }
+
+    .search-input-wrapper {
+      position: relative;
+      flex: 1 1 240px;
+      min-width: 220px;
+    }
+
+    .search-icon-pos {
+      position: absolute;
+      left: 11px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #8c978e;
+      pointer-events: none;
+    }
+
+    .form-control {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: #fffefa;
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      font-size: 12px;
+      outline: none;
+      color: var(--ink);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .form-control:focus {
+      border-color: #618771;
+      box-shadow: 0 0 0 3px rgba(49, 92, 69, 0.12);
+    }
+
+    .search-input-wrapper .form-control {
+      padding-left: 33px;
+    }
+
+    .filter-select {
+      width: auto;
+      min-width: 130px;
+      cursor: pointer;
+    }
+
+    .toolbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* TABLE STYLES */
+    .table-container {
+      overflow-x: auto;
+      position: relative;
+    }
+
+    .cases-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .cases-table th {
+      background: #f4f3ec;
+      padding: 11px 16px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      border-bottom: 1px solid var(--line);
+      user-select: none;
+    }
+
+    .cases-table th.sortable {
+      cursor: pointer;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .cases-table th.sortable:hover {
+      color: var(--green-primary);
+      background: #ecebe2;
+    }
+
+    .sort-indicator {
+      display: inline-block;
+      margin-left: 4px;
+      font-size: 10px;
+      color: var(--green-primary);
+    }
+
+    .cases-table tbody tr.case-row {
+      border-bottom: 1px solid var(--line-subtle);
+      transition: background 0.12s ease;
+      cursor: pointer;
+    }
+
+    .cases-table tbody tr.case-row:hover {
+      background: #f7f6ed;
+    }
+
+    .cases-table tbody tr.case-row.expanded {
+      background: #f1f5ee;
+      border-bottom-color: #d1ded3;
+    }
+
+    .cases-table td {
+      padding: 13px 16px;
+      vertical-align: middle;
+    }
+
+    .case-id-badge {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--green-primary);
+      background: var(--green-light);
+      padding: 3px 7px;
+      border-radius: 4px;
+      font-size: 11px;
+      border: 1px solid rgba(49, 92, 69, 0.15);
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .crime-main {
+      font-weight: 600;
+      color: var(--ink);
+      font-size: 12.5px;
+    }
+
+    .crime-sub {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* BADGES */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 9px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      border: 1px solid transparent;
+    }
+
+    .status-badge::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .status-open {
+      background: var(--blue-bg);
+      color: var(--blue);
+      border-color: var(--blue-border);
+    }
+    .status-open::before { background: #2563eb; }
+
+    .status-investigation {
+      background: var(--amber-bg);
+      color: var(--amber);
+      border-color: var(--amber-border);
+    }
+    .status-investigation::before { background: #d97706; }
+
+    .status-review {
+      background: var(--purple-bg);
+      color: var(--purple);
+      border-color: var(--purple-border);
+    }
+    .status-review::before { background: #9333ea; }
+
+    .status-closed {
+      background: var(--gray-badge-bg);
+      color: var(--gray-badge);
+      border-color: #d8ddd5;
+    }
+    .status-closed::before { background: #6b7280; }
+
+    .status-solved {
+      background: #e8f7ee;
+      color: #1a7442;
+      border-color: #b9ebd0;
+    }
+    .status-solved::before { background: #16a34a; }
+
+    .priority-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border: 1px solid transparent;
+    }
+
+    .priority-high {
+      background: var(--red-bg);
+      color: var(--red);
+      border-color: var(--red-border);
+    }
+
+    .priority-medium {
+      background: var(--amber-bg);
+      color: var(--amber);
+      border-color: var(--amber-border);
+    }
+
+    .priority-low {
+      background: #eaf3ed;
+      color: #27633d;
+      border-color: #c5dfcc;
+    }
+
+    .evidence-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #eeeee5;
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      color: var(--ink-secondary);
+      font-weight: 600;
+      transition: background 0.15s;
+    }
+
+    .evidence-pill:hover {
+      background: #e2e2d5;
+      color: var(--ink);
+    }
+
+    .action-cell {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* EXPANDED EVIDENCE DRAWER */
+    .evidence-drawer-row td {
+      padding: 0;
+      background: #f7f9f5;
+      border-bottom: 2px solid #dde5db;
+    }
+
+    .evidence-drawer {
+      padding: 16px 24px;
+      border-left: 4px solid var(--green-primary);
+    }
+
+    .evidence-drawer-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .evidence-drawer-head h4 {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .evidence-sublist {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .evidence-item-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      background: #ffffff;
+      border: 1px solid #e1e7de;
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+
+    .evidence-item-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .evidence-id-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      background: #f0f3ed;
+      color: var(--green-primary);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid #d5dfd3;
+    }
+
+    .evidence-type-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 3px;
+      background: #ecebe3;
+      color: #555e56;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .evidence-desc {
+      font-size: 12px;
+      color: var(--ink);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .evidence-meta {
+      font-size: 11px;
+      color: var(--muted);
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* EMPTY STATES */
+    .empty-state {
+      padding: 48px 24px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .empty-icon-wrap {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: #eae8dc;
+      color: var(--muted);
+      display: grid;
+      place-items: center;
+      margin-bottom: 14px;
+    }
+
+    .empty-state h3 {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .empty-state p {
+      font-size: 12px;
+      color: var(--muted);
+      max-width: 380px;
+      margin-bottom: 16px;
+    }
+
+    /* TABLE FOOTER / PAGINATION */
+    .table-footer {
+      padding: 12px 20px;
+      background: var(--paper-subtle);
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* SIDEBAR RIGHT STACK */
+    .side-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    /* LINKED LIST VISUALIZER */
+    .visualizer-container {
+      padding: 16px 18px;
+    }
+
+    .visualizer-intro {
+      font-size: 11px;
+      color: var(--ink-secondary);
+      margin-bottom: 14px;
+      line-height: 1.45;
+    }
+
+    .nodes-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+    }
+
+    .node-box {
+      border: 1px solid #d6ded4;
+      border-radius: var(--radius-sm);
+      background: #ffffff;
+      padding: 10px 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+      position: relative;
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+
+    .node-box:hover {
+      border-color: var(--green-primary);
+      transform: translateX(3px);
+      box-shadow: 0 3px 8px rgba(49, 92, 69, 0.12);
+    }
+
+    .node-box.is-head {
+      border-color: #8db59a;
+      background: #f2f8f4;
+    }
+
+    .node-box.is-head::before {
+      content: "HEAD";
+      position: absolute;
+      top: -9px;
+      right: 10px;
+      background: var(--green-primary);
+      color: #ffffff;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 3px;
+      letter-spacing: 0.08em;
+    }
+
+    .node-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .node-id {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 11px;
+      color: var(--green-primary);
+    }
+
+    .node-type-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .node-subinfo {
+      font-size: 10px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .node-pointer-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #92a396;
+      font-size: 13px;
+      padding: 2px 0;
+    }
+
+    .node-null-box {
+      padding: 8px 12px;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 11px;
+      color: #929d95;
+      background: #eeeee7;
+      border: 1px dashed #cfd6ce;
+      border-radius: var(--radius-sm);
+    }
+
+    .dsa-note-box {
+      margin-top: 14px;
+      padding: 11px 12px;
+      background: #f4f5ee;
+      border-left: 3px solid var(--green-primary);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: 11px;
+      line-height: 1.5;
+      color: #556157;
+    }
+
+    .dsa-note-box code {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--green-primary);
+      background: rgba(49, 92, 69, 0.08);
+      padding: 1px 4px;
+      border-radius: 3px;
+    }
+
+    /* DISTRIBUTION LIST */
+    .distribution-list {
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .dist-row {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .dist-row-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+    }
+
+    .dist-row-top strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .dist-row-top span {
+      color: var(--muted);
+    }
+
+    .dist-bar-track {
+      height: 5px;
+      background: #e9e8dd;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .dist-bar-fill {
+      height: 100%;
+      background: var(--green-primary);
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+
+    /* RECENT ACTIVITY */
+    .activity-list {
+      padding: 8px 18px 14px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .activity-item {
+      display: flex;
+      gap: 12px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--line-subtle);
+    }
+
+    .activity-item:last-child {
+      border-bottom: none;
+    }
+
+    .activity-icon-badge {
+      width: 26px;
+      height: 26px;
+      border-radius: var(--radius-sm);
+      background: var(--green-light);
+      color: var(--green-primary);
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .activity-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .activity-title {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .activity-meta {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 2px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* MODAL WINDOWS */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 20, 15, 0.65);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      display: none;
+      place-items: center;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .modal-backdrop.show {
+      display: grid;
+    }
+
+    .modal-box {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      width: min(580px, 100%);
+      overflow: hidden;
+      animation: modalPop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes modalPop {
+      from {
+        opacity: 0;
+        transform: scale(0.96) translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .modal-head {
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--line);
+      background: var(--paper-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-head h3 {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .modal-head p {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .btn-close-modal {
+      width: 30px;
+      height: 30px;
+      border-radius: var(--radius-sm);
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .btn-close-modal:hover {
+      background: #e9ece4;
+      color: var(--ink);
+    }
+
+    .modal-body {
+      padding: 22px;
+    }
+
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .form-group.col-full {
+      grid-column: 1 / -1;
+    }
+
+    .form-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ink-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .form-label span.req {
+      color: var(--red);
+      margin-left: 2px;
+    }
+
+    .char-count {
+      font-weight: 400;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .input-error-msg {
+      font-size: 10px;
+      color: var(--red);
+      display: none;
+      margin-top: 2px;
+    }
+
+    .form-group.has-error .input-error-msg {
+      display: block;
+    }
+
+    .form-group.has-error .form-control {
+      border-color: var(--red);
+      background: #fff8f8;
+    }
+
+    .modal-actions {
+      padding: 14px 22px;
+      background: var(--paper-subtle);
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .delete-summary-card {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      margin: 14px 0 6px;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    /* TOAST ALERTS */
+    .toast-container {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 120;
+      pointer-events: none;
+    }
+
+    .toast-item {
+      background: #17241d;
+      color: #ffffff;
+      padding: 12px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      border-left: 4px solid var(--lime);
+      animation: toastIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: auto;
+      max-width: 360px;
+    }
+
+    @keyframes toastIn {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* RESPONSIVE BREAKPOINTS */
+    @media (max-width: 1200px) {
+      .stats-row {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .stat-card:nth-child(3) {
+        border-right: none;
+      }
+      .stat-card:nth-child(4), .stat-card:nth-child(5) {
+        border-top: 1px solid var(--line);
+      }
+      .workspace-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+      .sidebar.open {
+        transform: translateX(0);
+      }
+      .main-wrapper {
+        margin-left: 0;
+      }
+      .menu-toggle-btn {
+        display: flex;
+      }
+      .stats-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .stat-card:nth-child(2) {
+        border-right: none;
+      }
+      .stat-card:nth-child(3) {
+        border-top: 1px solid var(--line);
+      }
+      .topbar {
+        padding: 0 16px;
+      }
+      .content-area {
+        padding: 20px 16px 40px;
+      }
+      .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 580px) {
+      .stats-row {
+        grid-template-columns: 1fr;
+      }
+      .stat-card {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+      }
+      .stat-card:last-child {
+        border-bottom: none;
+      }
+      .form-grid-2 {
+        grid-template-columns: 1fr;
+      }
+      .table-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .filter-select {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
-<div class="shell">
-  <aside class="sidebar">
-    <div class="brand"><div class="brand-mark">C</div><div><strong>Case Register</strong><small>Crime records · demo</small></div></div>
-    <div class="nav-label">Records</div>
-    <nav class="nav">
-      <button class="active" data-view="dashboard"><span class="ico">▦</span><span>Dashboard</span></button>
-      <button data-view="cases"><span class="ico">▤</span><span>Case records</span></button>
-      <button data-action="add"><span class="ico">＋</span><span>Add a case</span></button>
-    </nav>
-    <div class="nav-label">Case tools</div>
-    <nav class="nav">
-      <button data-action="overview"><span class="ico">◷</span><span>Case overview</span></button>
-      <button data-action="search"><span class="ico">⌕</span><span>Find a case</span></button>
-    </nav>
-      <div class="side-bottom"><strong>Case desk · Demo</strong>Crime Management &amp; Evidence Organization<br>Sample records · saved in this browser</div>
+
+<div class="app-shell">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark">C</div>
+      <div class="brand-title">
+        <strong>Case Register</strong>
+        <small>Evidence Management • DSA</small>
+      </div>
+    </div>
+
+    <div class="sidebar-cta">
+      <button class="btn-sidebar-add" id="sideAddBtn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+        <span>Register New Case</span>
+      </button>
+    </div>
+
+    <div class="sidebar-nav-section">
+      <div class="sidebar-label">Navigation</div>
+      <nav class="nav-list">
+        <button class="nav-item active" data-nav="all">
+          <span class="nav-item-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </span>
+          <span class="nav-item-text">All Cases</span>
+          <span class="nav-item-badge" id="navAllCount">0</span>
+        </button>
+        <button class="nav-item" data-nav="open">
+          <span class="nav-item-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </span>
+          <span class="nav-item-text">Open &amp; Active</span>
+          <span class="nav-item-badge" id="navOpenCount">0</span>
+        </button>
+        <button class="nav-item" data-nav="review">
+          <span class="nav-item-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </span>
+          <span class="nav-item-text">Evidence Review</span>
+          <span class="nav-item-badge" id="navReviewCount">0</span>
+        </button>
+        <button class="nav-item" data-nav="solved">
+          <span class="nav-item-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </span>
+          <span class="nav-item-text">Solved Cases</span>
+          <span class="nav-item-badge" id="navSolvedCount">0</span>
+        </button>
+      </nav>
+    </div>
+
+    <div class="sidebar-nav-section">
+      <div class="sidebar-label">Data Structure Shortcuts</div>
+      <nav class="nav-list">
+        <button class="nav-item" id="navJumpVisualizer">
+          <span class="nav-item-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="6" height="10" rx="1"/><rect x="16" y="7" width="6" height="10" rx="1"/><path d="M8 12h8"/><path d="m13 9 3 3-3 3"/></svg>
+          </span>
+          <span class="nav-item-text">Linked List View</span>
+        </button>
+        <button class="nav-item" id="navSortId">
+          <span class="nav-item-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 16 4 4 4-4"/><path d="M7 20V4"/><path d="m21 8-4-4-4 4"/><path d="M17 4v16"/></svg>
+          </span>
+          <span class="nav-item-text">Bubble Sort Nodes</span>
+        </button>
+      </nav>
+    </div>
+
+    <div class="sidebar-dsa-badge">
+      <strong>Linked List DSA Memory</strong>
+      Singly Linked List with dynamic <code>CaseNode</code> pointer linking and <code>EvidenceNode</code> sub-lists.
+    </div>
+
+    <div class="sidebar-footer">
+      <strong>Investigation Bureau Desk</strong>
+      Local Browser Memory Storage (<code>cems.v2</code>)<br>
+      Zero External Dependencies • C-Style Logic
+    </div>
   </aside>
-  <main class="main">
-    <header class="topbar"><div class="crumb">Case desk <span style="padding:0 7px;color:#b3bcb5">/</span><b id="crumb">Overview</b></div><div class="top-right"><div class="live"><i class="dot"></i> Demo workspace</div><div class="avatar">AM</div></div></header>
-    <div class="content">
-      <div class="heading"><div><div class="eyebrow">Crime Management &amp; Evidence Organization</div><h1>Case overview</h1><p>Keep case details, evidence notes and officer assignments together.</p></div><button class="button primary" id="addBtn"><span>＋</span> New case</button></div>
-      <section class="stats" id="stats"></section>
-      <div class="workspace">
-        <section class="panel">
-          <div class="panel-head"><div><h2>Case records</h2><p>Browse, find and update reported cases</p></div><span class="count" id="recordCount">0 records</span></div>
-          <div class="table-tools"><div class="searchbox"><span class="search-icon">⌕</span><input id="searchInput" class="input" placeholder="Find a case by ID, crime, location or officer…" aria-label="Search cases"></div><select class="select" id="typeFilter" aria-label="Filter by crime type"><option value="">All crime types</option></select></div>
-          <div class="table-wrap"><table><thead><tr><th>Case ID</th><th>Crime &amp; location</th><th>Date reported</th><th>Officer</th><th>Status</th><th>Actions</th></tr></thead><tbody id="caseRows"></tbody></table></div>
-        </section>
-        <div class="side-stack">
-          <section class="panel"><div class="panel-head"><div><h2>Case overview</h2><p>Records grouped by reported crime type</p></div><span class="count">SUMMARY</span></div><div class="structure" id="listView"></div></section>
-          <section class="panel"><div class="panel-head"><div><h2>Recent activity</h2><p>Latest changes to case records</p></div><span class="count">ACTIVITY</span></div><div class="activity" id="activity"></div></section>
+
+  <!-- MAIN WRAPPER -->
+  <div class="main-wrapper">
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle-btn" id="menuToggle" aria-label="Toggle navigation menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div class="breadcrumb">
+          <span>Police Investigation Unit</span>
+          <span class="breadcrumb-sep">/</span>
+          <b class="breadcrumb-current" id="crumbTitle">Case Registry &amp; Evidence Vault</b>
         </div>
       </div>
-      <div class="footer-note">Case management demo · Register reports, keep evidence notes, and manage case records</div>
-    </div>
-  </main>
+
+      <div class="topbar-right">
+        <div class="clock-display" id="clockDisplay" title="System Live Time">
+          <span class="clock-pulse"></span>
+          <span id="clockTime">--:--:--</span>
+        </div>
+        <button class="btn-icon" id="bellBtn" title="System Notifications">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="notification-dot"></span>
+        </button>
+        <div class="user-avatar" title="Officer Aditya Mohite (Investigator)">AM</div>
+      </div>
+    </header>
+
+    <!-- CONTENT AREA -->
+    <main class="content-area">
+      <!-- HEADER BANNER -->
+      <section class="page-header">
+        <div class="header-titles">
+          <div class="eyebrow">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Crime Evidence Management System • Linked List DSA
+          </div>
+          <h1>Investigation Registry &amp; Case Vault</h1>
+          <p>Maintain criminal case dockets, track custody of physical and digital evidence nodes, and inspect real-time linked list pointer traversals.</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn" id="exportCsvBtn" title="Export current cases and evidence to CSV">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Export CSV</span>
+          </button>
+          <button class="btn" id="resetDataBtn" title="Reset to original 6 DSA sample cases">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            <span>Reset Samples</span>
+          </button>
+          <button class="btn btn-primary" id="openAddCaseBtn" title="Add a new case (Shortcut: Ctrl+N)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span>New Case (Ctrl+N)</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- STATS ROW -->
+      <section class="stats-row" id="statsRow" aria-label="Investigation Statistics">
+        <div class="stat-card">
+          <div class="stat-header">
+            <span>Total Cases</span>
+            <div class="stat-icon-box">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            </div>
+          </div>
+          <div class="stat-number" id="statTotalCases">0</div>
+          <div class="stat-trend positive">
+            <span>↑ 8.4%</span>
+            <span style="color:var(--muted); font-weight:normal">from last cycle</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <span>Open &amp; Active</span>
+            <div class="stat-icon-box" style="background:#e8f1f8; color:#1e6292;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+          </div>
+          <div class="stat-number" id="statOpenCases">0</div>
+          <div class="stat-trend warning">
+            <span>● Active</span>
+            <span style="color:var(--muted); font-weight:normal">ongoing inquiries</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <span>Solved Cases</span>
+            <div class="stat-icon-box" style="background:#e8f7ee; color:#1a7442;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+          </div>
+          <div class="stat-number" id="statSolvedCases">0</div>
+          <div class="stat-trend positive">
+            <span>↑ 94.2%</span>
+            <span style="color:var(--muted); font-weight:normal">clearance rate</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <span>Evidence Items</span>
+            <div class="stat-icon-box" style="background:#f4ebff; color:#6c3bb8;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+            </div>
+          </div>
+          <div class="stat-number" id="statEvidenceCount">0</div>
+          <div class="stat-trend positive">
+            <span>Linked</span>
+            <span style="color:var(--muted); font-weight:normal">sub-nodes in list</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <span>Assigned Officers</span>
+            <div class="stat-icon-box">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+          </div>
+          <div class="stat-number" id="statOfficersCount">0</div>
+          <div class="stat-trend">
+            <span>On Duty</span>
+            <span style="color:var(--muted); font-weight:normal">in active roster</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- WORKSPACE AREA: TABLE + SIDEBAR STACK -->
+      <div class="workspace-layout">
+        <!-- LEFT: CASE RECORDS TABLE -->
+        <section class="panel" id="casesPanel">
+          <div class="panel-header">
+            <div class="panel-header-title">
+              <h2>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                Case Dossier Records
+              </h2>
+              <p>Linear traversal search across linked list nodes • Click any row to expand evidence records</p>
+            </div>
+            <span class="badge-tag" id="tableRecordBadge">0 nodes linked</span>
+          </div>
+
+          <!-- TABLE FILTERS & TOOLBAR -->
+          <div class="table-toolbar">
+            <div class="search-input-wrapper">
+              <span class="search-icon-pos">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              </span>
+              <input type="text" id="searchInput" class="form-control" placeholder="Search Case ID, crime type, location, officer, evidence..." aria-label="Search cases">
+            </div>
+
+            <select id="typeFilter" class="form-control filter-select" aria-label="Filter by crime type">
+              <option value="">All Crime Types</option>
+            </select>
+
+            <select id="statusFilter" class="form-control filter-select" aria-label="Filter by case status">
+              <option value="">All Statuses</option>
+              <option value="Open">Open</option>
+              <option value="Under Investigation">Under Investigation</option>
+              <option value="Evidence Review">Evidence Review</option>
+              <option value="Closed">Closed</option>
+              <option value="Solved">Solved</option>
+            </select>
+
+            <select id="priorityFilter" class="form-control filter-select" aria-label="Filter by priority">
+              <option value="">All Priorities</option>
+              <option value="High">High Priority</option>
+              <option value="Medium">Medium Priority</option>
+              <option value="Low">Low Priority</option>
+            </select>
+
+            <div class="toolbar-actions">
+              <button class="btn btn-sm btn-ghost" id="clearFiltersBtn" title="Reset search and filters">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                <span>Clear Filters</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- TABLE -->
+          <div class="table-container">
+            <table class="cases-table" id="casesTable">
+              <thead>
+                <tr>
+                  <th class="sortable" data-sort="id">
+                    Case ID <span class="sort-indicator" id="sort-id">↕</span>
+                  </th>
+                  <th>Crime &amp; Location</th>
+                  <th class="sortable" data-sort="date">
+                    Date Reported <span class="sort-indicator" id="sort-date">↕</span>
+                  </th>
+                  <th class="sortable" data-sort="priority">
+                    Priority <span class="sort-indicator" id="sort-priority">↕</span>
+                  </th>
+                  <th class="sortable" data-sort="status">
+                    Status <span class="sort-indicator" id="sort-status">↕</span>
+                  </th>
+                  <th>Officer in Charge</th>
+                  <th>Evidence</th>
+                  <th style="text-align: right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="caseTableBody">
+                <!-- Rows injected dynamically via JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-footer">
+            <span id="footerInfo">Showing records</span>
+            <span style="font-family:var(--font-mono); font-size:10px;">DSA Traversal: O(n) | Bubble Sort: O(n²)</span>
+          </div>
+        </section>
+
+        <!-- RIGHT: DSA VISUALIZER & ACTIVITY -->
+        <div class="side-stack">
+          <!-- PANEL 1: LINKED LIST STRUCTURE VISUALIZER -->
+          <section class="panel" id="visualizerPanel">
+            <div class="panel-header">
+              <div class="panel-header-title">
+                <h2>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="6" height="10" rx="1"/><rect x="16" y="7" width="6" height="10" rx="1"/><path d="M8 12h8"/><path d="m13 9 3 3-3 3"/></svg>
+                  Linked List Structure
+                </h2>
+                <p>Live visualization of in-memory node pointers</p>
+              </div>
+              <span class="badge-tag" style="background:#e4f2eb; color:#176b50;">LIVE DSA</span>
+            </div>
+
+            <div class="visualizer-container">
+              <p class="visualizer-intro">
+                Each node holds case information, a list of evidence nodes, and a pointer <code>.next</code> to the successive case.
+              </p>
+
+              <div class="nodes-flow" id="nodesVisualizerFlow">
+                <!-- Linked list nodes rendered here -->
+              </div>
+
+              <div class="dsa-note-box">
+                This is a singly linked list. Each node stores case data and a pointer to the next node. Deletion updates <code>prev.next = curr.next</code> and sorting operates directly on node references.
+              </div>
+            </div>
+          </section>
+
+          <!-- PANEL 2: CRIME DISTRIBUTION -->
+          <section class="panel">
+            <div class="panel-header">
+              <div class="panel-header-title">
+                <h2>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+                  Crime Type Distribution
+                </h2>
+                <p>Categorized case counts and density</p>
+              </div>
+            </div>
+            <div class="distribution-list" id="distributionList">
+              <!-- Dynamically populated -->
+            </div>
+          </section>
+
+          <!-- PANEL 3: RECENT ACTIVITY LOG -->
+          <section class="panel">
+            <div class="panel-header">
+              <div class="panel-header-title">
+                <h2>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+                  Activity Audit Log
+                </h2>
+                <p>Last 8 actions executed on the data structure</p>
+              </div>
+            </div>
+            <div class="activity-list" id="activityList">
+              <!-- Dynamically populated -->
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
 </div>
-<div class="modal-backdrop" id="caseModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal"><div class="modal-head"><div><h2 id="modalTitle">Add case record</h2><p id="modalSubtitle">Enter the details for the new case.</p></div><button class="close" data-close aria-label="Close">×</button></div><form id="caseForm"><div class="form"><div class="form-grid">
-  <div class="field"><label for="caseID">Case ID</label><input class="input" id="caseID" type="number" min="1" required placeholder="e.g. 103"></div>
-  <div class="field"><label for="crimeType">Crime type</label><input class="input" id="crimeType" required placeholder="e.g. Theft"></div>
-  <div class="field"><label for="location">Location</label><input class="input" id="location" required placeholder="Area, city"></div>
-  <div class="field"><label for="dateReported">Date reported</label><input class="input" id="dateReported" type="date" required></div>
-  <div class="field full"><label for="evidenceDescription">Evidence description</label><textarea id="evidenceDescription" required placeholder="Describe evidence associated with the case"></textarea></div>
-  <div class="field full"><label for="officerInCharge">Officer in charge</label><input class="input" id="officerInCharge" required placeholder="Officer name"></div>
- </div></div><div class="modal-actions"><button type="button" class="button" data-close>Cancel</button><button class="button primary" type="submit" id="saveBtn">Add record</button></div></form></div></div>
-<div class="modal-backdrop" id="deleteModal" role="dialog" aria-modal="true" aria-labelledby="deleteTitle"><div class="modal"><div class="modal-head"><div><h2 id="deleteTitle">Confirm case deletion</h2><p>Review the record before removing it.</p></div><button class="close" data-close aria-label="Close">×</button></div><div class="confirm-body">This case will be permanently removed from the register.<div class="confirm-record" id="deleteSummary"></div></div><div class="modal-actions"><button class="button" data-close>Keep case</button><button class="button danger" id="confirmDelete">Delete case</button></div></div></div>
-<div class="toast" id="toast" role="status"></div>
+
+<!-- ==========================================================================
+     MODALS
+     ========================================================================== -->
+
+<!-- CASE MODAL (ADD / EDIT) -->
+<div class="modal-backdrop" id="caseModal" role="dialog" aria-modal="true" aria-labelledby="caseModalTitle">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div>
+        <h3 id="caseModalTitle">Register New Case Record</h3>
+        <p id="caseModalSubtitle">Append a new CaseNode to the linked list structure.</p>
+      </div>
+      <button class="btn-close-modal" data-close-modal aria-label="Close dialog">✕</button>
+    </div>
+    <form id="caseForm" novalidate>
+      <div class="modal-body">
+        <div class="form-grid-2">
+          <!-- Case ID -->
+          <div class="form-group" id="groupCaseId">
+            <label class="form-label" for="inputCaseId">
+              Case ID <span class="req">*</span>
+            </label>
+            <input type="number" id="inputCaseId" class="form-control" placeholder="e.g. 107" min="1" required>
+            <span class="input-error-msg" id="errCaseId">Unique numeric Case ID is required.</span>
+          </div>
+
+          <!-- Crime Type -->
+          <div class="form-group" id="groupCrimeType">
+            <label class="form-label" for="inputCrimeType">
+              Crime Type <span class="req">*</span>
+            </label>
+            <input type="text" id="inputCrimeType" class="form-control" placeholder="e.g. Theft, Cybercrime" list="crimeSuggestions" required>
+            <datalist id="crimeSuggestions">
+              <option value="Theft">
+              <option value="Burglary">
+              <option value="Assault">
+              <option value="Cybercrime">
+              <option value="Vandalism">
+              <option value="Drug Trafficking">
+              <option value="Homicide">
+              <option value="Fraud">
+            </datalist>
+            <span class="input-error-msg" id="errCrimeType">Crime type is required.</span>
+          </div>
+
+          <!-- Location -->
+          <div class="form-group" id="groupLocation">
+            <label class="form-label" for="inputLocation">
+              Location <span class="req">*</span>
+            </label>
+            <input type="text" id="inputLocation" class="form-control" placeholder="e.g. MG Road, Pune" required>
+            <span class="input-error-msg" id="errLocation">Location is required.</span>
+          </div>
+
+          <!-- Date Reported -->
+          <div class="form-group" id="groupDate">
+            <label class="form-label" for="inputDate">
+              Date Reported <span class="req">*</span>
+            </label>
+            <input type="date" id="inputDate" class="form-control" required>
+            <span class="input-error-msg" id="errDate">Reported date is required.</span>
+          </div>
+
+          <!-- Priority -->
+          <div class="form-group">
+            <label class="form-label" for="inputPriority">
+              Priority <span class="req">*</span>
+            </label>
+            <select id="inputPriority" class="form-control" required>
+              <option value="High">High</option>
+              <option value="Medium" selected>Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
+
+          <!-- Status -->
+          <div class="form-group">
+            <label class="form-label" for="inputStatus">
+              Case Status <span class="req">*</span>
+            </label>
+            <select id="inputStatus" class="form-control" required>
+              <option value="Open">Open</option>
+              <option value="Under Investigation" selected>Under Investigation</option>
+              <option value="Evidence Review">Evidence Review</option>
+              <option value="Closed">Closed</option>
+              <option value="Solved">Solved</option>
+            </select>
+          </div>
+
+          <!-- Assigned Officer -->
+          <div class="form-group col-full" id="groupOfficer">
+            <label class="form-label" for="inputOfficer">
+              Assigned Investigating Officer <span class="req">*</span>
+            </label>
+            <input type="text" id="inputOfficer" class="form-control" placeholder="e.g. Officer R. Sharma" required>
+            <span class="input-error-msg" id="errOfficer">Assigned officer is required.</span>
+          </div>
+
+          <!-- Case Description -->
+          <div class="form-group col-full">
+            <label class="form-label" for="inputDescription">
+              <span>Case Description &amp; Incident Notes</span>
+              <span class="char-count" id="descCharCount">0 / 400</span>
+            </label>
+            <textarea id="inputDescription" class="form-control" rows="3" maxlength="400" placeholder="Brief summary of crime scene incident and initial findings..."></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn" data-close-modal>Cancel</button>
+        <button type="submit" class="btn btn-primary" id="saveCaseBtn">Append Case Node</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- EVIDENCE MODAL (ADD EVIDENCE ITEM) -->
+<div class="modal-backdrop" id="evidenceModal" role="dialog" aria-modal="true" aria-labelledby="evidenceModalTitle">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div>
+        <h3 id="evidenceModalTitle">Add Evidence Node</h3>
+        <p id="evidenceModalSubtitle">Link an EvidenceNode to the selected case.</p>
+      </div>
+      <button class="btn-close-modal" data-close-modal aria-label="Close dialog">✕</button>
+    </div>
+    <form id="evidenceForm" novalidate>
+      <input type="hidden" id="evCaseId">
+      <div class="modal-body">
+        <div class="form-grid-2">
+          <!-- Evidence ID -->
+          <div class="form-group" id="groupEvId">
+            <label class="form-label" for="inputEvId">
+              Evidence ID <span class="req">*</span>
+            </label>
+            <input type="text" id="inputEvId" class="form-control" placeholder="e.g. E008" required>
+            <span class="input-error-msg" id="errEvId">Evidence ID is required and must be unique in this case.</span>
+          </div>
+
+          <!-- Evidence Type -->
+          <div class="form-group" id="groupEvType">
+            <label class="form-label" for="inputEvType">
+              Evidence Type <span class="req">*</span>
+            </label>
+            <select id="inputEvType" class="form-control" required>
+              <option value="Physical">Physical</option>
+              <option value="Digital">Digital</option>
+              <option value="Witness">Witness Statement</option>
+              <option value="Document">Document / Report</option>
+            </select>
+          </div>
+
+          <!-- Date Collected -->
+          <div class="form-group" id="groupEvDate">
+            <label class="form-label" for="inputEvDate">
+              Date Collected <span class="req">*</span>
+            </label>
+            <input type="date" id="inputEvDate" class="form-control" required>
+            <span class="input-error-msg" id="errEvDate">Collection date is required.</span>
+          </div>
+
+          <!-- Location Found -->
+          <div class="form-group" id="groupEvLocation">
+            <label class="form-label" for="inputEvLocation">
+              Location Found <span class="req">*</span>
+            </label>
+            <input type="text" id="inputEvLocation" class="form-control" placeholder="e.g. Near entrance, Server room" required>
+            <span class="input-error-msg" id="errEvLocation">Location is required.</span>
+          </div>
+
+          <!-- Collected By -->
+          <div class="form-group col-full" id="groupEvOfficer">
+            <label class="form-label" for="inputEvOfficer">
+              Collected By / Forensics Officer <span class="req">*</span>
+            </label>
+            <input type="text" id="inputEvOfficer" class="form-control" placeholder="e.g. Const. Kumar / Forensics Team" required>
+            <span class="input-error-msg" id="errEvOfficer">Officer or technician name is required.</span>
+          </div>
+
+          <!-- Description -->
+          <div class="form-group col-full" id="groupEvDesc">
+            <label class="form-label" for="inputEvDesc">
+              Evidence Description <span class="req">*</span>
+            </label>
+            <textarea id="inputEvDesc" class="form-control" rows="2" placeholder="Detailed physical condition, serial number, packaging tag..." required></textarea>
+            <span class="input-error-msg" id="errEvDesc">Description is required.</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn" data-close-modal>Cancel</button>
+        <button type="submit" class="btn btn-primary" id="saveEvidenceBtn">Attach Evidence</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- DELETE CONFIRMATION MODAL -->
+<div class="modal-backdrop" id="deleteModal" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
+  <div class="modal-box" style="max-width: 480px;">
+    <div class="modal-head">
+      <div>
+        <h3 id="deleteModalTitle" style="color:var(--red);">Confirm Case Node Deletion</h3>
+        <p>This action will unlink the node from the singly linked list.</p>
+      </div>
+      <button class="btn-close-modal" data-close-modal aria-label="Close dialog">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:12.5px; color:var(--ink-secondary); line-height: 1.5;">
+        Are you sure you want to delete this case? The node pointers will be updated: <code>prev.next = curr.next</code> and its associated evidence sub-list will be deallocated.
+      </p>
+      <div class="delete-summary-card" id="deleteSummaryCard">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button type="button" class="btn" data-close-modal>Keep Record</button>
+      <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+        Unlink &amp; Delete Node
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+<!-- ==========================================================================
+     CORE DATA STRUCTURE IMPLEMENTATION & APPLICATION LOGIC
+     ========================================================================== -->
 <script>
-(()=>{
-  const KEY='caseflow.records.v1';
-  const defaults=[
-    {id:101,type:'Theft',location:'MG Road, Pune',date:'2026-08-15',evidence:'Broken window glass and footprints near the entrance',officer:'Officer R. Sharma',status:'Under investigation'},
-    {id:102,type:'Vandalism',location:'Sector 7, Nashik',date:'2026-08-18',evidence:'Spray paint marks on wall and CCTV footage recovered',officer:'Officer P. Deshmukh',status:'Under investigation'},
-    {id:103,type:'Assault',location:'Camp Area, Pune',date:'2026-08-20',evidence:'Witness statement and medical report recorded',officer:'Officer A. Patil',status:'Evidence review'},
-    {id:104,type:'Burglary',location:'College Road, Nashik',date:'2026-08-22',evidence:'Latent fingerprints collected from the entry point',officer:'Officer S. Jadhav',status:'Under investigation'}
-  ];
-  class CaseNode{constructor(record){Object.assign(this,record);this.next=null}}
-  let head=null;
-  function toArray(){const out=[];let current=head;while(current){out.push(current);current=current.next}return out}
-  function findNode(id){let current=head;while(current){if(current.id===id)return current;current=current.next}return null}
-  function append(record){const node=new CaseNode(record);if(!head){head=node;return}let current=head;while(current.next)current=current.next;current.next=node}
-  function load(){try{const stored=localStorage.getItem(KEY);return stored?JSON.parse(stored):defaults.map(x=>({...x}))}catch{return defaults.map(x=>({...x}))}}
-  load().sort((a,b)=>a.id-b.id).forEach(append);
-  let activities=[{icon:'↗',title:'Case records loaded',detail:`${toArray().length} sample cases ready`}], pendingDelete=null, editingId=null;
-  const $=s=>document.querySelector(s), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  function save(){localStorage.setItem(KEY,JSON.stringify(toArray().map(({next,...record})=>record)))}
-  function dateText(v){if(!v)return '—';const d=new Date(v+'T00:00:00');return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}
-  function log(icon,title,detail){activities.unshift({icon,title,detail});activities=activities.slice(0,5)}
-  function render(){
-    const records=toArray(), open=records.length, types=[...new Set(records.map(r=>r.type))].sort();
-    const officers=new Set(records.map(r=>r.officer).filter(Boolean)).size;
-    $('#stats').innerHTML=`<div class="stat"><div class="stat-top"><span>Total cases</span><span class="stat-icon">▤</span></div><div class="stat-value">${open}</div><div class="stat-foot">Reports in this workspace</div></div><div class="stat"><div class="stat-top"><span>Crime types</span><span class="stat-icon">◈</span></div><div class="stat-value">${types.length}</div><div class="stat-foot">Different report categories</div></div><div class="stat"><div class="stat-top"><span>Evidence notes</span><span class="stat-icon">⌑</span></div><div class="stat-value">${records.filter(r=>r.evidence).length}</div><div class="stat-foot">Cases with details recorded</div></div><div class="stat"><div class="stat-top"><span>Assigned officers</span><span class="stat-icon">♙</span></div><div class="stat-value">${officers}</div><div class="stat-foot">Officers listed on current cases</div></div>`;
-    $('#recordCount').textContent=`${records.length} record${records.length===1?'':'s'}`;
-    const sel=$('#typeFilter'), old=sel.value;sel.innerHTML='<option value="">All crime types</option>'+types.map(t=>`<option>${esc(t)}</option>`).join('');if(types.includes(old))sel.value=old;
-    const term=$('#searchInput').value.trim().toLowerCase(), type=sel.value;
-    const visible=records.filter(r=>(!type||r.type===type)&&(!term||[r.id,r.type,r.location,r.officer,r.evidence].some(v=>String(v).toLowerCase().includes(term))));
-    $('#caseRows').innerHTML=visible.length?visible.map(r=>`<tr><td><span class="id">#${r.id}</span></td><td><span class="crime">${esc(r.type)}</span><span class="sub">${esc(r.location)}</span></td><td>${dateText(r.date)}</td><td>${esc(r.officer)}</td><td><span class="status ${r.status==='Evidence review'?'review':''}">${esc(r.status)}</span></td><td><div class="actions"><button class="button small" data-edit="${r.id}" title="Update case">Edit</button><button class="button small ghost" data-delete="${r.id}" title="Delete case">Delete</button></div></td></tr>`).join(''):`<tr><td colspan="6"><div class="empty"><strong>${records.length?'No matching cases':'No case records yet'}</strong>${records.length?'Try another search or filter.':'Add a case to create the first node in the list.'}</div></td></tr>`;
-    renderList();$('#activity').innerHTML=activities.map(a=>`<div class="event"><div class="event-icon">${a.icon}</div><div><strong>${esc(a.title)}</strong><small>${esc(a.detail)}</small></div></div>`).join('');
+(() => {
+  'use strict';
+
+  // LOCAL STORAGE KEY
+  const STORAGE_KEY = 'cems.v2';
+
+  // --------------------------------------------------------------------------
+  // DSA CORE: EVIDENCE NODE CLASS
+  // --------------------------------------------------------------------------
+  class EvidenceNode {
+    constructor({ id, type, description, date, location, collectedBy }) {
+      this.id = String(id).trim();
+      this.type = type || 'Physical'; // Physical, Digital, Witness, Document
+      this.description = description || '';
+      this.date = date || new Date().toISOString().split('T')[0];
+      this.location = location || '';
+      this.collectedBy = collectedBy || '';
+      this.next = null; // Pointer to next EvidenceNode in the sub-list
+    }
   }
-  function renderList(){const host=$('#listView'),records=toArray();if(!records.length){host.innerHTML='<div class="empty" style="padding:20px"><strong>No cases to summarise</strong>New reports will appear here.</div>';return}const groups=records.reduce((all,r)=>(all[r.type]=(all[r.type]||0)+1,all),{}),max=Math.max(...Object.values(groups));host.innerHTML=Object.entries(groups).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])).map(([type,count])=>`<div class="event" style="align-items:center"><div class="event-icon">◈</div><div style="flex:1;min-width:0"><div style="display:flex;justify-content:space-between;gap:10px"><strong>${esc(type)}</strong><small>${count} case${count===1?'':'s'}</small></div><div style="height:4px;background:#e9e9df;border-radius:4px;margin-top:8px;overflow:hidden"><div style="width:${Math.round(count/max*100)}%;height:100%;background:#638264;border-radius:4px"></div></div></div></div>`).join('')+`<div class="structure-note">Case details include the report location, date, assigned officer and an evidence description.</div>`}
-  function toast(msg){const el=$('#toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2500)}
-  function openForm(id=null){editingId=id;const form=$('#caseForm');form.reset();$('#modalTitle').textContent=id?'Update case record':'Add case record';$('#modalSubtitle').textContent=id?'Make changes to the selected case.':'Enter the details for the new case.';$('#saveBtn').textContent=id?'Save changes':'Add record';if(id){const r=findNode(id);['caseID','crimeType','location','dateReported','evidenceDescription','officerInCharge'].forEach((k,i)=>form.elements[i].value=[r.id,r.type,r.location,r.date,r.evidence,r.officer][i]);$('#caseID').disabled=true} else $('#caseID').disabled=false;$('#caseModal').classList.add('show');setTimeout(()=>$('#caseID').focus(),50)}
-  function closeModals(){document.querySelectorAll('.modal-backdrop').forEach(m=>m.classList.remove('show'))}
-  $('#addBtn').onclick=()=>openForm();document.querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);
-  document.querySelectorAll('.modal-backdrop').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModals()}));
-  $('#caseForm').addEventListener('submit',e=>{e.preventDefault();const id=Number($('#caseID').value);const data={id,type:$('#crimeType').value.trim(),location:$('#location').value.trim(),date:$('#dateReported').value,evidence:$('#evidenceDescription').value.trim(),officer:$('#officerInCharge').value.trim(),status:'Under investigation'};if(editingId){const r=findNode(editingId);Object.assign(r,data,{status:r.status});log('✎',`Case ${id} updated`,'Case details saved')}else{if(findNode(id)){toast('That Case ID already exists. Choose a unique ID.');$('#caseID').focus();return}append(data);log('＋',`Case ${id} added`,'New case added to the register')}save();closeModals();render();toast(editingId?'Case record updated':'Case added to register')});
-  $('#caseRows').addEventListener('click',e=>{const ed=e.target.closest('[data-edit]'),del=e.target.closest('[data-delete]');if(ed)openForm(Number(ed.dataset.edit));if(del){pendingDelete=Number(del.dataset.delete);const r=findNode(pendingDelete);$('#deleteSummary').innerHTML=`<b>Case #${r.id} · ${esc(r.type)}</b><br>${esc(r.location)} · ${esc(r.officer)}`;$('#deleteModal').classList.add('show')}});
-  $('#confirmDelete').onclick=()=>{if(pendingDelete==null)return;let current=head,previous=null;while(current&&current.id!==pendingDelete){previous=current;current=current.next}if(current){if(previous)previous.next=current.next;else head=current.next;save();log('−',`Case ${pendingDelete} deleted`,'Case removed from the register');render();toast(`Case ${pendingDelete} deleted`)}pendingDelete=null;closeModals()};
-  $('#searchInput').addEventListener('input',render);$('#typeFilter').addEventListener('change',render);
-  document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.action==='add')return openForm();if(b.dataset.action==='search'){$('#searchInput').focus();$('#searchInput').scrollIntoView({behavior:'smooth',block:'center'});return}if(b.dataset.action==='overview'){document.querySelector('#listView').scrollIntoView({behavior:'smooth',block:'center'});return}document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');$('#crumb').textContent=b.dataset.view==='cases'?'Case records':'Overview'}));
-  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModals()});render();
+
+  // --------------------------------------------------------------------------
+  // DSA CORE: CASE NODE CLASS
+  // --------------------------------------------------------------------------
+  class CaseNode {
+    constructor({ id, type, location, date, priority, status, officer, description = '', evidence = [] }) {
+      this.id = Number(id);
+      this.type = type || 'General';
+      this.location = location || '';
+      this.date = date || new Date().toISOString().split('T')[0];
+      this.priority = priority || 'Medium'; // High, Medium, Low
+      this.status = status || 'Open'; // Open, Under Investigation, Evidence Review, Closed, Solved
+      this.officer = officer || 'Unassigned';
+      this.description = description || '';
+      this.next = null; // Singly linked list pointer to next CaseNode
+      
+      // Evidence sub-linked list head pointer
+      this.evidenceHead = null;
+      if (Array.isArray(evidence)) {
+        evidence.forEach(item => this.appendEvidence(item));
+      }
+    }
+
+    appendEvidence(evData) {
+      const node = (evData instanceof EvidenceNode) ? evData : new EvidenceNode(evData);
+      if (!this.evidenceHead) {
+        this.evidenceHead = node;
+        return node;
+      }
+      let curr = this.evidenceHead;
+      while (curr.next) {
+        curr = curr.next;
+      }
+      curr.next = node;
+      return node;
+    }
+
+    deleteEvidence(evidenceId) {
+      let curr = this.evidenceHead;
+      let prev = null;
+      while (curr && curr.id !== evidenceId) {
+        prev = curr;
+        curr = curr.next;
+      }
+      if (!curr) return false;
+      if (!prev) {
+        this.evidenceHead = curr.next;
+      } else {
+        prev.next = curr.next;
+      }
+      return true;
+    }
+
+    getEvidenceArray() {
+      const list = [];
+      let curr = this.evidenceHead;
+      while (curr) {
+        list.push(curr);
+        curr = curr.next;
+      }
+      return list;
+    }
+
+    getEvidenceCount() {
+      let count = 0;
+      let curr = this.evidenceHead;
+      while (curr) {
+        count++;
+        curr = curr.next;
+      }
+      return count;
+    }
+  }
+
+  // --------------------------------------------------------------------------
+  // DSA CORE: CASE LINKED LIST
+  // --------------------------------------------------------------------------
+  class CaseLinkedList {
+    constructor() {
+      this.head = null;
+    }
+
+    // O(n) Append to tail of linked list
+    append(caseData) {
+      const node = (caseData instanceof CaseNode) ? caseData : new CaseNode(caseData);
+      if (!this.head) {
+        this.head = node;
+        return node;
+      }
+      let curr = this.head;
+      while (curr.next) {
+        curr = curr.next;
+      }
+      curr.next = node;
+      return node;
+    }
+
+    // O(n) Linear traversal search by Case ID
+    find(id) {
+      let curr = this.head;
+      const targetId = Number(id);
+      while (curr) {
+        if (curr.id === targetId) return curr;
+        curr = curr.next;
+      }
+      return null;
+    }
+
+    // O(n) Delete node and relink: prev.next = curr.next
+    delete(id) {
+      let curr = this.head;
+      let prev = null;
+      const targetId = Number(id);
+      while (curr && curr.id !== targetId) {
+        prev = curr;
+        curr = curr.next;
+      }
+      if (!curr) return false;
+      if (!prev) {
+        this.head = curr.next;
+      } else {
+        prev.next = curr.next;
+      }
+      return true;
+    }
+
+    // Traverse and collect nodes to array for rendering
+    toArray() {
+      const list = [];
+      let curr = this.head;
+      while (curr) {
+        list.push(curr);
+        curr = curr.next;
+      }
+      return list;
+    }
+
+    // Bubble Sort algorithm directly on the linked list
+    // Operates on node values/references
+    bubbleSort(field, ascending = true) {
+      if (!this.head || !this.head.next) return;
+
+      const priorityOrder = { 'High': 3, 'Medium': 2, 'Low': 1 };
+      const statusOrder = {
+        'Open': 1,
+        'Under Investigation': 2,
+        'Evidence Review': 3,
+        'Closed': 4,
+        'Solved': 5
+      };
+
+      let swapped;
+      do {
+        swapped = false;
+        let curr = this.head;
+        while (curr && curr.next) {
+          let a = curr[field];
+          let b = curr.next[field];
+          let needSwap = false;
+
+          if (field === 'priority') {
+            a = priorityOrder[a] || 0;
+            b = priorityOrder[b] || 0;
+          } else if (field === 'status') {
+            a = statusOrder[a] || 0;
+            b = statusOrder[b] || 0;
+          } else if (typeof a === 'string') {
+            a = a.toLowerCase();
+            b = (b || '').toLowerCase();
+          }
+
+          if (ascending ? a > b : a < b) {
+            needSwap = true;
+          }
+
+          if (needSwap) {
+            // Swap node payloads and evidence linked list references
+            const temp = {
+              id: curr.id,
+              type: curr.type,
+              location: curr.location,
+              date: curr.date,
+              priority: curr.priority,
+              status: curr.status,
+              officer: curr.officer,
+              description: curr.description,
+              evidenceHead: curr.evidenceHead
+            };
+
+            curr.id = curr.next.id;
+            curr.type = curr.next.type;
+            curr.location = curr.next.location;
+            curr.date = curr.next.date;
+            curr.priority = curr.next.priority;
+            curr.status = curr.next.status;
+            curr.officer = curr.next.officer;
+            curr.description = curr.next.description;
+            curr.evidenceHead = curr.next.evidenceHead;
+
+            curr.next.id = temp.id;
+            curr.next.type = temp.type;
+            curr.next.location = temp.location;
+            curr.next.date = temp.date;
+            curr.next.priority = temp.priority;
+            curr.next.status = temp.status;
+            curr.next.officer = temp.officer;
+            curr.next.description = temp.description;
+            curr.next.evidenceHead = temp.evidenceHead;
+
+            swapped = true;
+          }
+          curr = curr.next;
+        }
+      } while (swapped);
+    }
+
+    // Serialize linked list to JSON for persistence
+    toJSON() {
+      return this.toArray().map(caseNode => ({
+        id: caseNode.id,
+        type: caseNode.type,
+        location: caseNode.location,
+        date: caseNode.date,
+        priority: caseNode.priority,
+        status: caseNode.status,
+        officer: caseNode.officer,
+        description: caseNode.description,
+        evidence: caseNode.getEvidenceArray().map(ev => ({
+          id: ev.id,
+          type: ev.type,
+          description: ev.description,
+          date: ev.date,
+          location: ev.location,
+          collectedBy: ev.collectedBy
+        }))
+      }));
+    }
+  }
+
+  // --------------------------------------------------------------------------
+  // SAMPLE DATA SPECIFICATION (Requirement #5)
+  // --------------------------------------------------------------------------
+  const INITIAL_SAMPLE_CASES = [
+    {
+      id: 101,
+      type: 'Theft',
+      location: 'MG Road, Pune',
+      date: '2026-08-15',
+      priority: 'High',
+      status: 'Under Investigation',
+      officer: 'Officer R. Sharma',
+      description: 'Break-in reported at commercial jewelry showroom. Display glass shattered.',
+      evidence: [
+        {
+          id: 'E001',
+          type: 'Physical',
+          description: 'Broken window glass and footprints near entrance',
+          date: '2026-08-15',
+          location: 'Near entrance',
+          collectedBy: 'Const. Kumar'
+        }
+      ]
+    },
+    {
+      id: 102,
+      type: 'Vandalism',
+      location: 'Sector 7, Nashik',
+      date: '2026-08-18',
+      priority: 'Low',
+      status: 'Evidence Review',
+      officer: 'Officer P. Deshmukh',
+      description: 'Defacement of municipal boundary wall with graffiti tags during late night.',
+      evidence: [
+        {
+          id: 'E002',
+          type: 'Digital',
+          description: 'CCTV footage recovered from boundary surveillance',
+          date: '2026-08-18',
+          location: 'Main gate camera',
+          collectedBy: 'Const. Singh'
+        },
+        {
+          id: 'E003',
+          type: 'Physical',
+          description: 'Spray paint marks on wall and discarded aerosol cans',
+          date: '2026-08-18',
+          location: 'North wall',
+          collectedBy: 'Const. Singh'
+        }
+      ]
+    },
+    {
+      id: 103,
+      type: 'Assault',
+      location: 'Camp Area, Pune',
+      date: '2026-08-20',
+      priority: 'High',
+      status: 'Under Investigation',
+      officer: 'Officer A. Patil',
+      description: 'Physical altercation reported outside diner. Complainant sustained blunt trauma.',
+      evidence: [
+        {
+          id: 'E004',
+          type: 'Document',
+          description: 'Witness statement and emergency medical triage report',
+          date: '2026-08-20',
+          location: 'Hospital',
+          collectedBy: 'Dr. Mehta'
+        }
+      ]
+    },
+    {
+      id: 104,
+      type: 'Burglary',
+      location: 'College Road, Nashik',
+      date: '2026-08-22',
+      priority: 'Medium',
+      status: 'Open',
+      officer: 'Officer S. Jadhav',
+      description: 'Residential burglary during vacation hours. Electronic equipment and cash stolen.',
+      evidence: [
+        {
+          id: 'E005',
+          type: 'Physical',
+          description: 'Latent fingerprints dusted from door handle and cash drawer',
+          date: '2026-08-22',
+          location: 'Front door',
+          collectedBy: 'Forensics Team'
+        }
+      ]
+    },
+    {
+      id: 105,
+      type: 'Cybercrime',
+      location: 'IT Park, Pune',
+      date: '2026-09-01',
+      priority: 'High',
+      status: 'Solved',
+      officer: 'Officer K. Joshi',
+      description: 'Unauthorized access to fintech corporate payment gateway and fund diversion.',
+      evidence: [
+        {
+          id: 'E006',
+          type: 'Digital',
+          description: 'Server logs, API access keys, and IP transaction traces',
+          date: '2026-09-01',
+          location: 'Remote server',
+          collectedBy: 'Cyber Cell'
+        }
+      ]
+    },
+    {
+      id: 106,
+      type: 'Drug Trafficking',
+      location: 'Highway NH-60',
+      date: '2026-09-05',
+      priority: 'Medium',
+      status: 'Closed',
+      officer: 'Officer M. Verma',
+      description: 'Highway patrol vehicle check intercepting concealed synthetic contraband.',
+      evidence: [
+        {
+          id: 'E007',
+          type: 'Physical',
+          description: 'Seized contraband samples in sealed chemical pouches',
+          date: '2026-09-05',
+          location: 'Vehicle trunk',
+          collectedBy: 'Narcotics Dept'
+        }
+      ]
+    }
+  ];
+
+  // --------------------------------------------------------------------------
+  // APPLICATION STATE
+  // --------------------------------------------------------------------------
+  const caseList = new CaseLinkedList();
+  let activities = [];
+  let expandedCaseId = null; // Currently expanded row ID
+  let editingCaseId = null;  // Case ID being edited (null when adding)
+  let pendingDeleteId = null;
+  let activeSortField = 'id';
+  let isSortAscending = true;
+  let activeNavFilter = 'all';
+
+  // --------------------------------------------------------------------------
+  // DOM HELPERS & SELECTORS
+  // --------------------------------------------------------------------------
+  const $ = selector => document.querySelector(selector);
+  const $$ = selector => document.querySelectorAll(selector);
+  const escapeHtml = str => String(str ?? '').replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[char]));
+
+  // --------------------------------------------------------------------------
+  // PERSISTENCE & DATA INITIALIZATION
+  // --------------------------------------------------------------------------
+  function saveToStorage() {
+    try {
+      const data = caseList.toJSON();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch (err) {
+      console.error('Storage write error:', err);
+    }
+  }
+
+  function loadFromStorage() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          parsed.forEach(c => caseList.append(c));
+          return true;
+        }
+      }
+    } catch (err) {
+      console.warn('Storage read failed. Falling back to defaults.', err);
+    }
+    // Load default sample data
+    INITIAL_SAMPLE_CASES.forEach(c => caseList.append(c));
+    saveToStorage();
+    return false;
+  }
+
+  // --------------------------------------------------------------------------
+  // AUDIT LOG & TOAST ALERTS
+  // --------------------------------------------------------------------------
+  function logActivity(icon, title, detail) {
+    const timestamp = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    activities.unshift({ icon, title, detail, timestamp });
+    if (activities.length > 8) {
+      activities.pop();
+    }
+  }
+
+  function showToast(message, type = 'info') {
+    const container = $('#toastContainer');
+    const toast = document.createElement('div');
+    toast.className = 'toast-item';
+    
+    let iconSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>';
+    if (type === 'success') {
+      iconSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d7f36a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>';
+    } else if (type === 'danger') {
+      iconSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>';
+    }
+
+    toast.innerHTML = `${iconSvg} <span>${escapeHtml(message)}</span>`;
+    container.appendChild(toast);
+
+    setTimeout(() => {
+      toast.style.transition = 'opacity 0.25s, transform 0.25s';
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateY(10px)';
+      setTimeout(() => toast.remove(), 250);
+    }, 3200);
+  }
+
+  // --------------------------------------------------------------------------
+  // UI BADGE BUILDERS
+  // --------------------------------------------------------------------------
+  function getStatusBadge(status) {
+    let cls = 'status-open';
+    const s = String(status).toLowerCase();
+    if (s.includes('investigation')) cls = 'status-investigation';
+    else if (s.includes('review')) cls = 'status-review';
+    else if (s.includes('close')) cls = 'status-closed';
+    else if (s.includes('solve')) cls = 'status-solved';
+    return `<span class="status-badge ${cls}">${escapeHtml(status)}</span>`;
+  }
+
+  function getPriorityBadge(priority) {
+    let cls = 'priority-medium';
+    const p = String(priority).toLowerCase();
+    if (p === 'high') cls = 'priority-high';
+    else if (p === 'low') cls = 'priority-low';
+    return `<span class="priority-badge ${cls}">${escapeHtml(priority)}</span>`;
+  }
+
+  // --------------------------------------------------------------------------
+  // RENDER MAIN APPLICATION
+  // --------------------------------------------------------------------------
+  function renderApp() {
+    const allCases = caseList.toArray();
+
+    // 1. Update Stats Cards
+    const totalCases = allCases.length;
+    const openCases = allCases.filter(c => c.status === 'Open' || c.status === 'Under Investigation').length;
+    const solvedCases = allCases.filter(c => c.status === 'Solved').length;
+    let totalEvidence = 0;
+    const officerSet = new Set();
+
+    allCases.forEach(c => {
+      totalEvidence += c.getEvidenceCount();
+      if (c.officer && c.officer.trim()) {
+        officerSet.add(c.officer.trim());
+      }
+    });
+
+    $('#statTotalCases').textContent = totalCases;
+    $('#statOpenCases').textContent = openCases;
+    $('#statSolvedCases').textContent = solvedCases;
+    $('#statEvidenceCount').textContent = totalEvidence;
+    $('#statOfficersCount').textContent = officerSet.size;
+
+    // 2. Update Nav Item Badges
+    $('#navAllCount').textContent = totalCases;
+    $('#navOpenCount').textContent = openCases;
+    $('#navReviewCount').textContent = allCases.filter(c => c.status === 'Evidence Review').length;
+    $('#navSolvedCount').textContent = solvedCases;
+
+    // 3. Populate Crime Types in Filter Dropdown
+    const crimeTypes = [...new Set(allCases.map(c => c.type))].sort();
+    const typeSelect = $('#typeFilter');
+    const currentSelectedType = typeSelect.value;
+    typeSelect.innerHTML = '<option value="">All Crime Types</option>' +
+      crimeTypes.map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join('');
+    if (crimeTypes.includes(currentSelectedType)) {
+      typeSelect.value = currentSelectedType;
+    }
+
+    // 4. Filter & Search Traversals
+    const searchTerm = $('#searchInput').value.trim().toLowerCase();
+    const filterType = typeSelect.value;
+    const filterStatus = $('#statusFilter').value;
+    const filterPriority = $('#priorityFilter').value;
+
+    let visibleCases = allCases.filter(c => {
+      // Sidebar navigation filter
+      if (activeNavFilter === 'open' && !(c.status === 'Open' || c.status === 'Under Investigation')) return false;
+      if (activeNavFilter === 'review' && c.status !== 'Evidence Review') return false;
+      if (activeNavFilter === 'solved' && c.status !== 'Solved') return false;
+
+      // Select dropdown filters
+      if (filterType && c.type !== filterType) return false;
+      if (filterStatus && c.status !== filterStatus) return false;
+      if (filterPriority && c.priority !== filterPriority) return false;
+
+      // Search term traversal
+      if (searchTerm) {
+        const evidenceTexts = c.getEvidenceArray().map(e => `${e.id} ${e.type} ${e.description} ${e.location} ${e.collectedBy}`).join(' ');
+        const fullSearchBlob = `${c.id} ${c.type} ${c.location} ${c.officer} ${c.status} ${c.priority} ${c.description} ${evidenceTexts}`.toLowerCase();
+        if (!fullSearchBlob.includes(searchTerm)) return false;
+      }
+      return true;
+    });
+
+    // 5. Render Table Rows
+    renderTable(visibleCases, allCases.length);
+
+    // 6. Render Linked List Visualizer
+    renderVisualizer(allCases);
+
+    // 7. Render Crime Type Distribution
+    renderDistribution(allCases);
+
+    // 8. Render Audit Activity Log
+    renderActivityLog();
+
+    // 9. Update Sort Indicators on headers
+    updateSortIndicators();
+  }
+
+  // --------------------------------------------------------------------------
+  // RENDER TABLE & EVIDENCE SUB-LISTS
+  // --------------------------------------------------------------------------
+  function renderTable(visibleCases, totalCount) {
+    const tbody = $('#caseTableBody');
+    $('#tableRecordBadge').textContent = `${visibleCases.length} of ${totalCount} nodes`;
+    $('#footerInfo').textContent = `Displaying ${visibleCases.length} case records in linked list memory.`;
+
+    if (!visibleCases.length) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="8">
+            <div class="empty-state">
+              <div class="empty-icon-wrap">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              </div>
+              <h3>No matching case records found</h3>
+              <p>${totalCount === 0 ? 'The linked list is currently empty. Click "New Case" to append the first node.' : 'Try adjusting your search keywords, crime type filter, or status filter.'}</p>
+              ${totalCount > 0 ? '<button class="btn btn-sm btn-ghost" id="emptyClearBtn">Clear search &amp; filters</button>' : ''}
+            </div>
+          </td>
+        </tr>
+      `;
+      const emptyBtn = $('#emptyClearBtn');
+      if (emptyBtn) emptyBtn.onclick = resetFilters;
+      return;
+    }
+
+    let html = '';
+    visibleCases.forEach(caseNode => {
+      const isExpanded = (expandedCaseId === caseNode.id);
+      const evidenceCount = caseNode.getEvidenceCount();
+      const dateFormatted = caseNode.date ? new Date(caseNode.date + 'T00:00:00').toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+      }) : '—';
+
+      html += `
+        <tr class="case-row ${isExpanded ? 'expanded' : ''}" data-case-id="${caseNode.id}" title="Click row to inspect evidence chain">
+          <td>
+            <span class="case-id-badge">#${caseNode.id}</span>
+          </td>
+          <td>
+            <div class="crime-main">${escapeHtml(caseNode.type)}</div>
+            <div class="crime-sub">${escapeHtml(caseNode.location)}</div>
+          </td>
+          <td>
+            <span style="font-variant-numeric:tabular-nums;">${dateFormatted}</span>
+          </td>
+          <td>
+            ${getPriorityBadge(caseNode.priority)}
+          </td>
+          <td>
+            ${getStatusBadge(caseNode.status)}
+          </td>
+          <td>
+            <span style="font-weight:500;">${escapeHtml(caseNode.officer)}</span>
+          </td>
+          <td>
+            <span class="evidence-pill" data-action="toggle-expand" data-case-id="${caseNode.id}" title="Click to view/hide evidence items">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/></svg>
+              <span>${evidenceCount} item${evidenceCount === 1 ? '' : 's'}</span>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="${isExpanded ? '18 15 12 9 6 15' : '6 9 12 15 18 9'}"/></svg>
+            </span>
+          </td>
+          <td style="text-align: right;" onclick="event.stopPropagation();">
+            <div class="action-cell" style="justify-content: flex-end;">
+              <button class="btn btn-xs" data-action="edit" data-case-id="${caseNode.id}" title="Edit Case details">
+                Edit
+              </button>
+              <button class="btn btn-xs btn-danger" data-action="delete" data-case-id="${caseNode.id}" title="Delete Case and relink list">
+                Delete
+              </button>
+            </div>
+          </td>
+        </tr>
+      `;
+
+      // Render Expanded Evidence Drawer
+      if (isExpanded) {
+        const evidenceList = caseNode.getEvidenceArray();
+        html += `
+          <tr class="evidence-drawer-row">
+            <td colspan="8">
+              <div class="evidence-drawer">
+                <div class="evidence-drawer-head">
+                  <h4>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/></svg>
+                    Evidence Chain for Case #${caseNode.id} (${evidenceList.length} sub-node${evidenceList.length === 1 ? '' : 's'})
+                  </h4>
+                  <button class="btn btn-xs btn-primary" data-action="add-evidence" data-case-id="${caseNode.id}">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    <span>Attach Evidence</span>
+                  </button>
+                </div>
+
+                ${caseNode.description ? `
+                  <div style="font-size:11.5px; color:var(--ink-secondary); margin-bottom:12px; background:#fff; padding:8px 12px; border-radius:var(--radius-sm); border:1px solid #e1e7de;">
+                    <strong>Case Notes:</strong> ${escapeHtml(caseNode.description)}
+                  </div>
+                ` : ''}
+
+                <div class="evidence-sublist">
+                  ${evidenceList.length === 0 ? `
+                    <div style="padding:16px; text-align:center; color:var(--muted); font-size:11.5px; background:#fff; border-radius:var(--radius-sm); border:1px dashed #d6dfd4;">
+                      No evidence pieces attached to this case yet. Click "Attach Evidence" to link an EvidenceNode.
+                    </div>
+                  ` : evidenceList.map(ev => `
+                    <div class="evidence-item-card">
+                      <div class="evidence-item-left">
+                        <span class="evidence-id-tag">${escapeHtml(ev.id)}</span>
+                        <span class="evidence-type-badge">${escapeHtml(ev.type)}</span>
+                        <span class="evidence-desc" title="${escapeHtml(ev.description)}">${escapeHtml(ev.description)}</span>
+                      </div>
+                      <div class="evidence-meta">
+                        <span>📍 ${escapeHtml(ev.location)}</span>
+                        <span>👤 ${escapeHtml(ev.collectedBy)}</span>
+                        <span style="font-variant-numeric:tabular-nums;">📅 ${escapeHtml(ev.date)}</span>
+                        <button class="btn btn-xs btn-ghost" data-action="delete-evidence" data-case-id="${caseNode.id}" data-ev-id="${escapeHtml(ev.id)}" title="Delete this evidence node" style="color:var(--red);">
+                          ✕
+                        </button>
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </td>
+          </tr>
+        `;
+      }
+    });
+
+    tbody.innerHTML = html;
+  }
+
+  // --------------------------------------------------------------------------
+  // RENDER LINKED LIST VISUALIZER
+  // --------------------------------------------------------------------------
+  function renderVisualizer(nodes) {
+    const container = $('#nodesVisualizerFlow');
+    if (!nodes.length) {
+      container.innerHTML = `
+        <div class="node-null-box" style="padding:14px; text-align:center;">
+          HEAD → NULL (List is empty)
+        </div>
+      `;
+      return;
+    }
+
+    let flowHtml = '';
+    nodes.forEach((node, index) => {
+      const isHead = (index === 0);
+      flowHtml += `
+        <div class="node-box ${isHead ? 'is-head' : ''}" data-jump-id="${node.id}" title="Click to inspect Case #${node.id}">
+          <div class="node-header">
+            <span class="node-id">#${node.id}</span>
+            <span class="node-type-label">${escapeHtml(node.type)}</span>
+          </div>
+          <div class="node-subinfo">
+            <span>${escapeHtml(node.location.split(',')[0])}</span>
+            <span>Ev: <b>${node.getEvidenceCount()}</b></span>
+          </div>
+        </div>
+        <div class="node-pointer-arrow">
+          <span>↓ <code>.next</code></span>
+        </div>
+      `;
+    });
+
+    flowHtml += `
+      <div class="node-null-box">
+        NULL (End of Singly Linked List)
+      </div>
+    `;
+
+    container.innerHTML = flowHtml;
+  }
+
+  // --------------------------------------------------------------------------
+  // RENDER CRIME DISTRIBUTION SUMMARY
+  // --------------------------------------------------------------------------
+  function renderDistribution(cases) {
+    const host = $('#distributionList');
+    if (!cases.length) {
+      host.innerHTML = '<div style="color:var(--muted); font-size:11px; padding:10px 0;">No crime data to summarize.</div>';
+      return;
+    }
+
+    const counts = {};
+    cases.forEach(c => {
+      counts[c.type] = (counts[c.type] || 0) + 1;
+    });
+
+    const total = cases.length;
+    const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+
+    host.innerHTML = sorted.map(([type, count]) => {
+      const pct = Math.round((count / total) * 100);
+      return `
+        <div class="dist-row">
+          <div class="dist-row-top">
+            <strong>${escapeHtml(type)}</strong>
+            <span>${count} (${pct}%)</span>
+          </div>
+          <div class="dist-bar-track">
+            <div class="dist-bar-fill" style="width: ${pct}%;"></div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // --------------------------------------------------------------------------
+  // RENDER AUDIT LOG
+  // --------------------------------------------------------------------------
+  function renderActivityLog() {
+    const host = $('#activityList');
+    if (!activities.length) {
+      host.innerHTML = '<div style="color:var(--muted); font-size:11px; padding:10px 0;">No actions recorded in this session.</div>';
+      return;
+    }
+
+    host.innerHTML = activities.map(act => `
+      <div class="activity-item">
+        <div class="activity-icon-badge">${act.icon}</div>
+        <div class="activity-body">
+          <div class="activity-title">${escapeHtml(act.title)}</div>
+          <div class="activity-meta">
+            <span>${escapeHtml(act.detail)}</span>
+            <span style="font-family:var(--font-mono);">${act.timestamp}</span>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // --------------------------------------------------------------------------
+  // SORTING ON LINKED LIST (BUBBLE SORT)
+  // --------------------------------------------------------------------------
+  function handleSort(field) {
+    if (activeSortField === field) {
+      isSortAscending = !isSortAscending;
+    } else {
+      activeSortField = field;
+      isSortAscending = true;
+    }
+
+    // Execute actual Bubble Sort on the linked list
+    caseList.bubbleSort(activeSortField, isSortAscending);
+    saveToStorage();
+    logActivity('↕', `Linked list sorted by ${activeSortField}`, `${isSortAscending ? 'Ascending' : 'Descending'} traversal order`);
+    renderApp();
+    showToast(`Nodes sorted by ${activeSortField} (${isSortAscending ? 'Ascending' : 'Descending'})`, 'info');
+  }
+
+  function updateSortIndicators() {
+    ['id', 'date', 'priority', 'status'].forEach(field => {
+      const el = $(`#sort-${field}`);
+      if (el) {
+        if (activeSortField === field) {
+          el.textContent = isSortAscending ? '▲' : '▼';
+        } else {
+          el.textContent = '↕';
+        }
+      }
+    });
+  }
+
+  // --------------------------------------------------------------------------
+  // MODAL HANDLERS (ADD/EDIT CASE, ADD EVIDENCE, DELETE)
+  // --------------------------------------------------------------------------
+  function openCaseModal(idToEdit = null) {
+    editingCaseId = idToEdit;
+    const form = $('#caseForm');
+    form.reset();
+    $$('.form-group').forEach(g => g.classList.remove('has-error'));
+
+    if (idToEdit !== null) {
+      const node = caseList.find(idToEdit);
+      if (!node) return;
+      $('#caseModalTitle').textContent = `Update Case Record #${node.id}`;
+      $('#caseModalSubtitle').textContent = 'Modify node attributes while preserving linked pointers.';
+      $('#saveCaseBtn').textContent = 'Save Changes';
+
+      $('#inputCaseId').value = node.id;
+      $('#inputCaseId').disabled = true;
+      $('#inputCrimeType').value = node.type;
+      $('#inputLocation').value = node.location;
+      $('#inputDate').value = node.date;
+      $('#inputPriority').value = node.priority;
+      $('#inputStatus').value = node.status;
+      $('#inputOfficer').value = node.officer;
+      $('#inputDescription').value = node.description || '';
+      $('#descCharCount').textContent = `${(node.description || '').length} / 400`;
+    } else {
+      $('#caseModalTitle').textContent = 'Register New Case Record';
+      $('#caseModalSubtitle').textContent = 'Append a new CaseNode to the singly linked list.';
+      $('#saveCaseBtn').textContent = 'Append Case Node';
+
+      // Suggest auto-increment Case ID
+      const all = caseList.toArray();
+      const maxId = all.reduce((max, c) => Math.max(max, c.id), 100);
+      $('#inputCaseId').value = maxId + 1;
+      $('#inputCaseId').disabled = false;
+      $('#inputDate').value = new Date().toISOString().split('T')[0];
+      $('#inputPriority').value = 'Medium';
+      $('#inputStatus').value = 'Under Investigation';
+      $('#descCharCount').textContent = '0 / 400';
+    }
+
+    $('#caseModal').classList.add('show');
+    setTimeout(() => {
+      if (!idToEdit) $('#inputCaseId').focus();
+      else $('#inputCrimeType').focus();
+    }, 50);
+  }
+
+  function openEvidenceModal(caseId) {
+    const caseNode = caseList.find(caseId);
+    if (!caseNode) return;
+
+    const form = $('#evidenceForm');
+    form.reset();
+    $$('.form-group').forEach(g => g.classList.remove('has-error'));
+
+    $('#evCaseId').value = caseId;
+    $('#evidenceModalTitle').textContent = `Add Evidence to Case #${caseId}`;
+    $('#evidenceModalSubtitle').textContent = `Appending to evidence sub-list for ${escapeHtml(caseNode.type)}.`;
+
+    // Generate suggested Evidence ID (e.g. E008)
+    const existingEvs = caseNode.getEvidenceArray();
+    let nextNum = existingEvs.length + 1;
+    // Or check global count
+    const totalEv = caseList.toArray().reduce((acc, c) => acc + c.getEvidenceCount(), 0);
+    const suggestedId = 'E' + String(totalEv + 1).padStart(3, '0');
+    $('#inputEvId').value = suggestedId;
+    $('#inputEvDate').value = new Date().toISOString().split('T')[0];
+    $('#inputEvType').value = 'Physical';
+
+    $('#evidenceModal').classList.add('show');
+    setTimeout(() => $('#inputEvDesc').focus(), 50);
+  }
+
+  function openDeleteModal(caseId) {
+    pendingDeleteId = caseId;
+    const node = caseList.find(caseId);
+    if (!node) return;
+
+    const summary = $('#deleteSummaryCard');
+    summary.innerHTML = `
+      <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+        <strong style="color:var(--green-primary); font-size:13px;">Case #${node.id} · ${escapeHtml(node.type)}</strong>
+        <span class="badge-tag">${node.priority} Priority</span>
+      </div>
+      <div style="color:var(--muted); font-size:11.5px;">📍 ${escapeHtml(node.location)}</div>
+      <div style="color:var(--muted); font-size:11.5px;">👤 ${escapeHtml(node.officer)} · 🏷️ ${node.getEvidenceCount()} evidence nodes</div>
+    `;
+
+    $('#deleteModal').classList.add('show');
+  }
+
+  function closeAllModals() {
+    $$('.modal-backdrop').forEach(m => m.classList.remove('show'));
+    pendingDeleteId = null;
+    editingCaseId = null;
+  }
+
+  // --------------------------------------------------------------------------
+  // FORM SUBMISSION: CASE (ADD / EDIT)
+  // --------------------------------------------------------------------------
+  $('#caseForm').addEventListener('submit', e => {
+    e.preventDefault();
+
+    const idInput = $('#inputCaseId');
+    const crimeInput = $('#inputCrimeType');
+    const locInput = $('#inputLocation');
+    const dateInput = $('#inputDate');
+    const officerInput = $('#inputOfficer');
+
+    let hasError = false;
+
+    // Validate Case ID
+    const caseId = Number(idInput.value);
+    if (!caseId || caseId <= 0) {
+      $('#groupCaseId').classList.add('has-error');
+      $('#errCaseId').textContent = 'A valid positive Case ID is required.';
+      hasError = true;
+    } else if (!editingCaseId && caseList.find(caseId)) {
+      $('#groupCaseId').classList.add('has-error');
+      $('#errCaseId').textContent = `Case ID #${caseId} already exists! Duplicate IDs are not permitted.`;
+      hasError = true;
+    } else {
+      $('#groupCaseId').classList.remove('has-error');
+    }
+
+    // Validate Crime Type
+    if (!crimeInput.value.trim()) {
+      $('#groupCrimeType').classList.add('has-error');
+      hasError = true;
+    } else {
+      $('#groupCrimeType').classList.remove('has-error');
+    }
+
+    // Validate Location
+    if (!locInput.value.trim()) {
+      $('#groupLocation').classList.add('has-error');
+      hasError = true;
+    } else {
+      $('#groupLocation').classList.remove('has-error');
+    }
+
+    // Validate Date
+    if (!dateInput.value) {
+      $('#groupDate').classList.add('has-error');
+      hasError = true;
+    } else {
+      $('#groupDate').classList.remove('has-error');
+    }
+
+    // Validate Officer
+    if (!officerInput.value.trim()) {
+      $('#groupOfficer').classList.add('has-error');
+      hasError = true;
+    } else {
+      $('#groupOfficer').classList.remove('has-error');
+    }
+
+    if (hasError) return;
+
+    const payload = {
+      id: caseId,
+      type: crimeInput.value.trim(),
+      location: locInput.value.trim(),
+      date: dateInput.value,
+      priority: $('#inputPriority').value,
+      status: $('#inputStatus').value,
+      officer: officerInput.value.trim(),
+      description: $('#inputDescription').value.trim()
+    };
+
+    if (editingCaseId) {
+      const node = caseList.find(editingCaseId);
+      if (node) {
+        node.type = payload.type;
+        node.location = payload.location;
+        node.date = payload.date;
+        node.priority = payload.priority;
+        node.status = payload.status;
+        node.officer = payload.officer;
+        node.description = payload.description;
+
+        logActivity('✎', `Case #${node.id} updated`, `Crime: ${node.type} (${node.status})`);
+        showToast(`Case #${node.id} updated successfully`, 'success');
+      }
+    } else {
+      caseList.append(payload);
+      logActivity('＋', `Case #${caseId} appended`, `Appended new node to linked list (${payload.type})`);
+      showToast(`Case #${caseId} added to linked list`, 'success');
+    }
+
+    saveToStorage();
+    closeAllModals();
+    renderApp();
+  });
+
+  // --------------------------------------------------------------------------
+  // FORM SUBMISSION: EVIDENCE (ADD ITEM TO CASE)
+  // --------------------------------------------------------------------------
+  $('#evidenceForm').addEventListener('submit', e => {
+    e.preventDefault();
+
+    const caseId = Number($('#evCaseId').value);
+    const caseNode = caseList.find(caseId);
+    if (!caseNode) {
+      showToast('Case node not found.', 'danger');
+      return;
+    }
+
+    const idInput = $('#inputEvId');
+    const descInput = $('#inputEvDesc');
+    const dateInput = $('#inputEvDate');
+    const locInput = $('#inputEvLocation');
+    const officerInput = $('#inputEvOfficer');
+
+    let hasError = false;
+    const evId = idInput.value.trim();
+
+    if (!evId) {
+      $('#groupEvId').classList.add('has-error');
+      hasError = true;
+    } else {
+      // Check if evidence ID already exists in this case
+      const duplicate = caseNode.getEvidenceArray().some(ev => ev.id.toLowerCase() === evId.toLowerCase());
+      if (duplicate) {
+        $('#groupEvId').classList.add('has-error');
+        $('#errEvId').textContent = `Evidence ID "${evId}" already exists on Case #${caseId}.`;
+        hasError = true;
+      } else {
+        $('#groupEvId').classList.remove('has-error');
+      }
+    }
+
+    if (!descInput.value.trim()) {
+      $('#groupEvDesc').classList.add('has-error');
+      hasError = true;
+    } else {
+      $('#groupEvDesc').classList.remove('has-error');
+    }
+
+    if (!dateInput.value) {
+      $('#groupEvDate').classList.add('has-error');
+      hasError = true;
+    } else {
+      $('#groupEvDate').classList.remove('has-error');
+    }
+
+    if (!locInput.value.trim()) {
+      $('#groupEvLocation').classList.add('has-error');
+      hasError = true;
+    } else {
+      $('#groupEvLocation').classList.remove('has-error');
+    }
+
+    if (!officerInput.value.trim()) {
+      $('#groupEvOfficer').classList.add('has-error');
+      hasError = true;
+    } else {
+      $('#groupEvOfficer').classList.remove('has-error');
+    }
+
+    if (hasError) return;
+
+    caseNode.appendEvidence({
+      id: evId,
+      type: $('#inputEvType').value,
+      description: descInput.value.trim(),
+      date: dateInput.value,
+      location: locInput.value.trim(),
+      collectedBy: officerInput.value.trim()
+    });
+
+    saveToStorage();
+    logActivity('🏷️', `Evidence ${evId} linked`, `Attached to Case #${caseId}`);
+    showToast(`Evidence ${evId} linked to Case #${caseId}`, 'success');
+    closeAllModals();
+    expandedCaseId = caseId; // Keep drawer open
+    renderApp();
+  });
+
+  // --------------------------------------------------------------------------
+  // CONFIRM CASE DELETION (RELINKING NODES)
+  // --------------------------------------------------------------------------
+  $('#confirmDeleteBtn').addEventListener('click', () => {
+    if (pendingDeleteId === null) return;
+
+    const id = pendingDeleteId;
+    const deleted = caseList.delete(id);
+    if (deleted) {
+      saveToStorage();
+      logActivity('−', `Case #${id} deleted`, 'Pointers relinked (prev.next = curr.next)');
+      showToast(`Case #${id} successfully unlinked and deleted`, 'success');
+      if (expandedCaseId === id) expandedCaseId = null;
+      renderApp();
+    } else {
+      showToast('Could not find case to delete', 'danger');
+    }
+    closeAllModals();
+  });
+
+  // --------------------------------------------------------------------------
+  // EVENT DELEGATION: TABLE CLICKS (ROW EXPAND, EDIT, DELETE, EVIDENCE REMOVAL)
+  // --------------------------------------------------------------------------
+  $('#caseTableBody').addEventListener('click', e => {
+    const target = e.target;
+
+    // Delete Evidence sub-item
+    const delEvBtn = target.closest('[data-action="delete-evidence"]');
+    if (delEvBtn) {
+      e.stopPropagation();
+      const caseId = Number(delEvBtn.dataset.caseId);
+      const evId = delEvBtn.dataset.evId;
+      const caseNode = caseList.find(caseId);
+      if (caseNode && caseNode.deleteEvidence(evId)) {
+        saveToStorage();
+        logActivity('−', `Evidence ${evId} removed`, `Unlinked from Case #${caseId}`);
+        showToast(`Evidence ${evId} removed from Case #${caseId}`, 'info');
+        renderApp();
+      }
+      return;
+    }
+
+    // Add Evidence button inside drawer
+    const addEvBtn = target.closest('[data-action="add-evidence"]');
+    if (addEvBtn) {
+      e.stopPropagation();
+      openEvidenceModal(Number(addEvBtn.dataset.caseId));
+      return;
+    }
+
+    // Edit Case Button
+    const editBtn = target.closest('[data-action="edit"]');
+    if (editBtn) {
+      e.stopPropagation();
+      openCaseModal(Number(editBtn.dataset.caseId));
+      return;
+    }
+
+    // Delete Case Button
+    const delBtn = target.closest('[data-action="delete"]');
+    if (delBtn) {
+      e.stopPropagation();
+      openDeleteModal(Number(delBtn.dataset.caseId));
+      return;
+    }
+
+    // Row expansion click
+    const row = target.closest('tr.case-row');
+    if (row) {
+      const caseId = Number(row.dataset.caseId);
+      expandedCaseId = (expandedCaseId === caseId) ? null : caseId;
+      renderApp();
+    }
+  });
+
+  // --------------------------------------------------------------------------
+  // VISUALIZER NODE CLICK: SCROLL & EXPAND CASE ROW
+  // --------------------------------------------------------------------------
+  $('#nodesVisualizerFlow').addEventListener('click', e => {
+    const nodeBox = e.target.closest('[data-jump-id]');
+    if (!nodeBox) return;
+
+    const caseId = Number(nodeBox.dataset.jumpId);
+    expandedCaseId = caseId;
+    renderApp();
+
+    const targetRow = $(`tr.case-row[data-case-id="${caseId}"]`);
+    if (targetRow) {
+      targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      targetRow.style.outline = '2px solid var(--green-primary)';
+      setTimeout(() => { targetRow.style.outline = 'none'; }, 2000);
+    }
+  });
+
+  // --------------------------------------------------------------------------
+  // EXPORT CSV FUNCTIONALITY
+  // --------------------------------------------------------------------------
+  function exportToCsv() {
+    const allCases = caseList.toArray();
+    if (!allCases.length) {
+      showToast('No cases available to export.', 'danger');
+      return;
+    }
+
+    const headers = [
+      'Case ID',
+      'Crime Type',
+      'Location',
+      'Date Reported',
+      'Priority',
+      'Status',
+      'Assigned Officer',
+      'Case Description',
+      'Evidence Count',
+      'Evidence Item Details'
+    ];
+
+    const escapeCsv = val => {
+      const s = String(val ?? '').replace(/"/g, '""');
+      return `"${s}"`;
+    };
+
+    const rows = [headers.map(escapeCsv).join(',')];
+
+    allCases.forEach(c => {
+      const evList = c.getEvidenceArray();
+      const evSummary = evList.map(e => `[${e.id}] ${e.type}: ${e.description} (Loc: ${e.location}, By: ${e.collectedBy}, Date: ${e.date})`).join('; ');
+      
+      const row = [
+        c.id,
+        c.type,
+        c.location,
+        c.date,
+        c.priority,
+        c.status,
+        c.officer,
+        c.description,
+        evList.length,
+        evSummary
+      ];
+      rows.push(row.map(escapeCsv).join(','));
+    });
+
+    const csvContent = rows.join('\r\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    const today = new Date().toISOString().split('T')[0];
+    link.href = url;
+    link.setAttribute('download', `Crime_Evidence_Cases_${today}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+    logActivity('⬇', 'Exported CSV file', `${allCases.length} records downloaded`);
+    showToast(`Successfully exported ${allCases.length} case records to CSV`, 'success');
+  }
+
+  // --------------------------------------------------------------------------
+  // RESET TO SAMPLE DATA
+  // --------------------------------------------------------------------------
+  function resetSampleData() {
+    if (confirm('Reset all records back to the original 6 DSA sample cases? Any customized edits will be replaced.')) {
+      caseList.head = null;
+      INITIAL_SAMPLE_CASES.forEach(c => caseList.append(c));
+      saveToStorage();
+      expandedCaseId = null;
+      logActivity('↺', 'Reset to initial sample cases', 'Pre-loaded 6 standard benchmark records');
+      renderApp();
+      showToast('Sample dataset restored successfully', 'success');
+    }
+  }
+
+  // --------------------------------------------------------------------------
+  // SEARCH & FILTER LISTENERS
+  // --------------------------------------------------------------------------
+  $('#searchInput').addEventListener('input', renderApp);
+  $('#typeFilter').addEventListener('change', renderApp);
+  $('#statusFilter').addEventListener('change', renderApp);
+  $('#priorityFilter').addEventListener('change', renderApp);
+
+  function resetFilters() {
+    $('#searchInput').value = '';
+    $('#typeFilter').value = '';
+    $('#statusFilter').value = '';
+    $('#priorityFilter').value = '';
+    activeNavFilter = 'all';
+    $$('.nav-item').forEach(btn => btn.classList.remove('active'));
+    $('[data-nav="all"]').classList.add('active');
+    renderApp();
+    showToast('Filters cleared', 'info');
+  }
+  $('#clearFiltersBtn').addEventListener('click', resetFilters);
+
+  // Table Column Header Click for Bubble Sort
+  $$('th.sortable').forEach(th => {
+    th.addEventListener('click', () => {
+      const field = th.dataset.sort;
+      handleSort(field);
+    });
+  });
+
+  // Sidebar Nav Items
+  $$('.nav-item[data-nav]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      $$('.nav-item[data-nav]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeNavFilter = btn.dataset.nav;
+
+      if (activeNavFilter === 'all') $('#crumbTitle').textContent = 'Case Registry & Evidence Vault';
+      else if (activeNavFilter === 'open') $('#crumbTitle').textContent = 'Open & Under Investigation Cases';
+      else if (activeNavFilter === 'review') $('#crumbTitle').textContent = 'Cases in Evidence Review';
+      else if (activeNavFilter === 'solved') $('#crumbTitle').textContent = 'Solved Cases Archives';
+
+      renderApp();
+    });
+  });
+
+  // Character counter for description
+  $('#inputDescription').addEventListener('input', e => {
+    $('#descCharCount').textContent = `${e.target.value.length} / 400`;
+  });
+
+  // Modal open buttons
+  $('#openAddCaseBtn').addEventListener('click', () => openCaseModal());
+  $('#sideAddBtn').addEventListener('click', () => openCaseModal());
+  $('#exportCsvBtn').addEventListener('click', exportToCsv);
+  $('#resetDataBtn').addEventListener('click', resetSampleData);
+
+  // Close modals
+  $$('[data-close-modal]').forEach(btn => btn.addEventListener('click', closeAllModals));
+  $$('.modal-backdrop').forEach(backdrop => {
+    backdrop.addEventListener('click', e => {
+      if (e.target === backdrop) closeAllModals();
+    });
+  });
+
+  // Sidebar Quick Shortcuts
+  $('#navJumpVisualizer').addEventListener('click', () => {
+    $('#visualizerPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    $('#visualizerPanel').style.boxShadow = '0 0 0 3px rgba(49, 92, 69, 0.3)';
+    setTimeout(() => { $('#visualizerPanel').style.boxShadow = ''; }, 2000);
+  });
+
+  $('#navSortId').addEventListener('click', () => {
+    handleSort('id');
+  });
+
+  // Mobile menu toggle
+  $('#menuToggle').addEventListener('click', () => {
+    $('#sidebar').classList.toggle('open');
+  });
+
+  // Notification Bell
+  $('#bellBtn').addEventListener('click', () => {
+    showToast(`System Audit: ${activities.length} recent operations logged in memory.`, 'info');
+  });
+
+  // --------------------------------------------------------------------------
+  // KEYBOARD SHORTCUTS (Escape, Ctrl+N / Cmd+N)
+  // --------------------------------------------------------------------------
+  document.addEventListener('keydown', e => {
+    // Escape to close open modals
+    if (e.key === 'Escape') {
+      closeAllModals();
+    }
+    // Ctrl+N or Cmd+N to open new case form
+    if ((e.ctrlKey || e.metaKey) && (e.key === 'n' || e.key === 'N')) {
+      e.preventDefault();
+      openCaseModal();
+    }
+  });
+
+  // --------------------------------------------------------------------------
+  // LIVE DIGITAL CLOCK
+  // --------------------------------------------------------------------------
+  function updateClock() {
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    const dateStr = now.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
+    const el = $('#clockTime');
+    if (el) el.textContent = `${dateStr} • ${timeStr}`;
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  // --------------------------------------------------------------------------
+  // INITIALIZATION RUN
+  // --------------------------------------------------------------------------
+  loadFromStorage();
+  logActivity('🚀', 'Linked List Initialized', `${caseList.toArray().length} case nodes allocated into memory`);
+  renderApp();
+
 })();
 </script>
 </body>
 </html>
-
