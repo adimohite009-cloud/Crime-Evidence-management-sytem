@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#101916">
-  <meta name="description" content="Crime Evidence Management System — Data Structure Linked List Implementation">
+  <meta name="description" content="Crime Evidence Management System — Data Structure Linked List Implementation with Interactive Status Workflow">
   <title>Crime Evidence Management System — Investigation &amp; Case Records</title>
   <style>
     /* ==========================================================================
@@ -371,6 +371,19 @@
       display: flex;
       align-items: center;
       gap: 14px;
+    }
+
+    .status-workflow-tag {
+      font-size: 11px;
+      font-weight: 700;
+      background: #e8ede4;
+      color: #264a37;
+      padding: 5px 11px;
+      border-radius: var(--radius-pill);
+      border: 1px solid #c9d8c4;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .clock-display {
@@ -911,6 +924,135 @@
     }
     .status-solved::before { background: #16a34a; }
 
+    /* INTERACTIVE STATUS SELECTOR PILL IN TABLE */
+    .status-select-pill {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      padding: 4px 22px 4px 9px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      border: 1px solid transparent;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.15s ease;
+      background-repeat: no-repeat;
+      background-position: right 7px center;
+      background-size: 8px 8px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23334155' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      font-family: inherit;
+    }
+
+    .status-select-pill:hover {
+      filter: brightness(0.95);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .status-select-pill:focus {
+      box-shadow: 0 0 0 2px rgba(49, 92, 69, 0.25);
+    }
+
+    .status-select-pill.status-open {
+      background-color: var(--blue-bg);
+      color: var(--blue);
+      border-color: var(--blue-border);
+    }
+
+    .status-select-pill.status-investigation {
+      background-color: var(--amber-bg);
+      color: var(--amber);
+      border-color: var(--amber-border);
+    }
+
+    .status-select-pill.status-review {
+      background-color: var(--purple-bg);
+      color: var(--purple);
+      border-color: var(--purple-border);
+    }
+
+    .status-select-pill.status-closed {
+      background-color: var(--gray-badge-bg);
+      color: var(--gray-badge);
+      border-color: #d8ddd5;
+    }
+
+    .status-select-pill.status-solved {
+      background-color: #e8f7ee;
+      color: #1a7442;
+      border-color: #b9ebd0;
+    }
+
+    .status-select-pill option {
+      background-color: #ffffff;
+      color: var(--ink);
+      font-weight: 500;
+      padding: 4px;
+    }
+
+    /* STATUS WORKFLOW BAR IN EXPANDED VIEW */
+    .status-workflow-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 10px 14px;
+      background: #ffffff;
+      border: 1px solid #e1e7de;
+      border-radius: var(--radius-sm);
+      margin-bottom: 14px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+
+    .status-workflow-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-workflow-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    .status-workflow-buttons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .workflow-btn {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--line);
+      background: #fbfaf6;
+      color: var(--ink-secondary);
+      cursor: pointer;
+      transition: all 0.12s ease;
+    }
+
+    .workflow-btn:hover {
+      background: #f0ede1;
+      color: var(--ink);
+      transform: translateY(-1px);
+    }
+
+    .workflow-btn.is-active {
+      background: var(--green-primary);
+      border-color: var(--green-primary);
+      color: #ffffff;
+      box-shadow: 0 1px 4px rgba(49, 92, 69, 0.25);
+    }
+
     .priority-badge {
       display: inline-flex;
       align-items: center;
@@ -1195,6 +1337,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 4px;
     }
 
     .node-pointer-arrow {
@@ -1694,8 +1837,11 @@
       </div>
 
       <div class="topbar-right">
-        <div class="clock-display" id="clockDisplay" title="System Live Time">
+        <div class="status-workflow-tag" title="Instant status changing is enabled across table and expanded views">
           <span class="clock-pulse"></span>
+          <span>Status Workflow v2.2</span>
+        </div>
+        <div class="clock-display" id="clockDisplay" title="System Live Time">
           <span id="clockTime">--:--:--</span>
         </div>
         <button class="btn-icon" id="bellBtn" title="System Notifications">
@@ -1716,7 +1862,7 @@
             Crime Evidence Management System • Linked List DSA
           </div>
           <h1>Investigation Registry &amp; Case Vault</h1>
-          <p>Maintain criminal case dockets, track custody of physical and digital evidence nodes, and inspect real-time linked list pointer traversals.</p>
+          <p>Maintain criminal case dockets, track custody of physical and digital evidence nodes, and update case status instantly with one click.</p>
         </div>
         <div class="header-actions">
           <button class="btn" id="exportCsvBtn" title="Export current cases and evidence to CSV">
@@ -1745,8 +1891,8 @@
           </div>
           <div class="stat-number" id="statTotalCases">0</div>
           <div class="stat-trend positive">
-            <span>↑ 8.4%</span>
-            <span style="color:var(--muted); font-weight:normal">from last cycle</span>
+            <span>↑ Active</span>
+            <span style="color:var(--muted); font-weight:normal">linked list nodes</span>
           </div>
         </div>
 
@@ -1759,7 +1905,7 @@
           </div>
           <div class="stat-number" id="statOpenCases">0</div>
           <div class="stat-trend warning">
-            <span>● Active</span>
+            <span>● Pending</span>
             <span style="color:var(--muted); font-weight:normal">ongoing inquiries</span>
           </div>
         </div>
@@ -1773,8 +1919,8 @@
           </div>
           <div class="stat-number" id="statSolvedCases">0</div>
           <div class="stat-trend positive">
-            <span>↑ 94.2%</span>
-            <span style="color:var(--muted); font-weight:normal">clearance rate</span>
+            <span>✓ Resolved</span>
+            <span style="color:var(--muted); font-weight:normal">cleared dockets</span>
           </div>
         </div>
 
@@ -1817,7 +1963,7 @@
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                 Case Dossier Records
               </h2>
-              <p>Linear traversal search across linked list nodes • Click any row to expand evidence records</p>
+              <p>Linear traversal search across linked list nodes • Change case status instantly using the dropdown pills</p>
             </div>
             <span class="badge-tag" id="tableRecordBadge">0 nodes linked</span>
           </div>
@@ -1874,8 +2020,8 @@
                   <th class="sortable" data-sort="priority">
                     Priority <span class="sort-indicator" id="sort-priority">↕</span>
                   </th>
-                  <th class="sortable" data-sort="status">
-                    Status <span class="sort-indicator" id="sort-status">↕</span>
+                  <th class="sortable" data-sort="status" title="Sort by status • Use row dropdowns to change status">
+                    Status (Changeable) <span class="sort-indicator" id="sort-status">↕</span>
                   </th>
                   <th>Officer in Charge</th>
                   <th>Evidence</th>
@@ -1890,7 +2036,7 @@
 
           <div class="table-footer">
             <span id="footerInfo">Showing records</span>
-            <span style="font-family:var(--font-mono); font-size:10px;">DSA Traversal: O(n) | Bubble Sort: O(n²)</span>
+            <span style="font-family:var(--font-mono); font-size:10px;">DSA Traversal: O(n) | In-Memory Bubble Sort: O(n²)</span>
           </div>
         </section>
 
@@ -2036,10 +2182,10 @@
             </select>
           </div>
 
-          <!-- Status -->
+          <!-- Case Status -->
           <div class="form-group">
             <label class="form-label" for="inputStatus">
-              Case Status <span class="req">*</span>
+              Case Status (Workflow) <span class="req">*</span>
             </label>
             <select id="inputStatus" class="form-control" required>
               <option value="Open">Open</option>
@@ -2676,16 +2822,37 @@
   }
 
   // --------------------------------------------------------------------------
-  // UI BADGE BUILDERS
+  // UI BADGE BUILDERS & STATUS HELPERS
   // --------------------------------------------------------------------------
+  function getStatusClass(status) {
+    const s = String(status || '').toLowerCase();
+    if (s.includes('investigation')) return 'status-investigation';
+    if (s.includes('review')) return 'status-review';
+    if (s.includes('close')) return 'status-closed';
+    if (s.includes('solve')) return 'status-solved';
+    return 'status-open';
+  }
+
   function getStatusBadge(status) {
-    let cls = 'status-open';
-    const s = String(status).toLowerCase();
-    if (s.includes('investigation')) cls = 'status-investigation';
-    else if (s.includes('review')) cls = 'status-review';
-    else if (s.includes('close')) cls = 'status-closed';
-    else if (s.includes('solve')) cls = 'status-solved';
+    const cls = getStatusClass(status);
     return `<span class="status-badge ${cls}">${escapeHtml(status)}</span>`;
+  }
+
+  function renderStatusDropdown(caseNode) {
+    const cls = getStatusClass(caseNode.status);
+    const statuses = [
+      { val: 'Open', label: '🔵 Open' },
+      { val: 'Under Investigation', label: '🟡 Under Investigation' },
+      { val: 'Evidence Review', label: '🟣 Evidence Review' },
+      { val: 'Solved', label: '🟢 Solved' },
+      { val: 'Closed', label: '⚪ Closed' }
+    ];
+
+    return `
+      <select class="status-select-pill ${cls}" data-action="quick-status" data-case-id="${caseNode.id}" title="Click to change case status">
+        ${statuses.map(s => `<option value="${s.val}" ${caseNode.status === s.val ? 'selected' : ''}>${s.label}</option>`).join('')}
+      </select>
+    `;
   }
 
   function getPriorityBadge(priority) {
@@ -2833,8 +3000,8 @@
           <td>
             ${getPriorityBadge(caseNode.priority)}
           </td>
-          <td>
-            ${getStatusBadge(caseNode.status)}
+          <td onclick="event.stopPropagation();">
+            ${renderStatusDropdown(caseNode)}
           </td>
           <td>
             <span style="font-weight:500;">${escapeHtml(caseNode.officer)}</span>
@@ -2848,7 +3015,7 @@
           </td>
           <td style="text-align: right;" onclick="event.stopPropagation();">
             <div class="action-cell" style="justify-content: flex-end;">
-              <button class="btn btn-xs" data-action="edit" data-case-id="${caseNode.id}" title="Edit Case details">
+              <button class="btn btn-xs" data-action="edit" data-case-id="${caseNode.id}" title="Edit Case metadata and status">
                 Edit
               </button>
               <button class="btn btn-xs btn-danger" data-action="delete" data-case-id="${caseNode.id}" title="Delete Case and relink list">
@@ -2866,6 +3033,22 @@
           <tr class="evidence-drawer-row">
             <td colspan="8">
               <div class="evidence-drawer">
+                <!-- QUICK STATUS WORKFLOW TOOLBAR -->
+                <div class="status-workflow-bar">
+                  <div class="status-workflow-left">
+                    <span class="status-workflow-title">Workflow State:</span>
+                    <span class="status-badge ${getStatusClass(caseNode.status)}">${escapeHtml(caseNode.status)}</span>
+                  </div>
+                  <div class="status-workflow-buttons">
+                    <span style="font-size:11px; color:var(--muted); font-weight:600; margin-right:4px;">Change Status:</span>
+                    <button type="button" class="workflow-btn ${caseNode.status === 'Open' ? 'is-active' : ''}" data-action="set-status" data-case-id="${caseNode.id}" data-status="Open">🔵 Open</button>
+                    <button type="button" class="workflow-btn ${caseNode.status === 'Under Investigation' ? 'is-active' : ''}" data-action="set-status" data-case-id="${caseNode.id}" data-status="Under Investigation">🟡 Under Investigation</button>
+                    <button type="button" class="workflow-btn ${caseNode.status === 'Evidence Review' ? 'is-active' : ''}" data-action="set-status" data-case-id="${caseNode.id}" data-status="Evidence Review">🟣 Evidence Review</button>
+                    <button type="button" class="workflow-btn ${caseNode.status === 'Solved' ? 'is-active' : ''}" data-action="set-status" data-case-id="${caseNode.id}" data-status="Solved">🟢 Mark Solved</button>
+                    <button type="button" class="workflow-btn ${caseNode.status === 'Closed' ? 'is-active' : ''}" data-action="set-status" data-case-id="${caseNode.id}" data-status="Closed">⚪ Close Case</button>
+                  </div>
+                </div>
+
                 <div class="evidence-drawer-head">
                   <h4>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/></svg>
@@ -2941,7 +3124,7 @@
           </div>
           <div class="node-subinfo">
             <span>${escapeHtml(node.location.split(',')[0])}</span>
-            <span>Ev: <b>${node.getEvidenceCount()}</b></span>
+            <span class="status-badge ${getStatusClass(node.status)}" style="font-size:8.5px; padding:1px 5px;">${escapeHtml(node.status)}</span>
           </div>
         </div>
         <div class="node-pointer-arrow">
@@ -3062,7 +3245,7 @@
       const node = caseList.find(idToEdit);
       if (!node) return;
       $('#caseModalTitle').textContent = `Update Case Record #${node.id}`;
-      $('#caseModalSubtitle').textContent = 'Modify node attributes while preserving linked pointers.';
+      $('#caseModalSubtitle').textContent = 'Modify node attributes including Case Status and priority.';
       $('#saveCaseBtn').textContent = 'Save Changes';
 
       $('#inputCaseId').value = node.id;
@@ -3110,10 +3293,7 @@
     $('#evidenceModalTitle').textContent = `Add Evidence to Case #${caseId}`;
     $('#evidenceModalSubtitle').textContent = `Appending to evidence sub-list for ${escapeHtml(caseNode.type)}.`;
 
-    // Generate suggested Evidence ID (e.g. E008)
     const existingEvs = caseNode.getEvidenceArray();
-    let nextNum = existingEvs.length + 1;
-    // Or check global count
     const totalEv = caseList.toArray().reduce((acc, c) => acc + c.getEvidenceCount(), 0);
     const suggestedId = 'E' + String(totalEv + 1).padStart(3, '0');
     $('#inputEvId').value = suggestedId;
@@ -3136,7 +3316,7 @@
         <span class="badge-tag">${node.priority} Priority</span>
       </div>
       <div style="color:var(--muted); font-size:11.5px;">📍 ${escapeHtml(node.location)}</div>
-      <div style="color:var(--muted); font-size:11.5px;">👤 ${escapeHtml(node.officer)} · 🏷️ ${node.getEvidenceCount()} evidence nodes</div>
+      <div style="color:var(--muted); font-size:11.5px;">👤 ${escapeHtml(node.officer)} · 🏷️ ${node.getEvidenceCount()} evidence nodes · Status: <b>${node.status}</b></div>
     `;
 
     $('#deleteModal').classList.add('show');
@@ -3233,7 +3413,7 @@
         node.description = payload.description;
 
         logActivity('✎', `Case #${node.id} updated`, `Crime: ${node.type} (${node.status})`);
-        showToast(`Case #${node.id} updated successfully`, 'success');
+        showToast(`Case #${node.id} updated successfully (Status: ${node.status})`, 'success');
       }
     } else {
       caseList.append(payload);
@@ -3272,7 +3452,6 @@
       $('#groupEvId').classList.add('has-error');
       hasError = true;
     } else {
-      // Check if evidence ID already exists in this case
       const duplicate = caseNode.getEvidenceArray().some(ev => ev.id.toLowerCase() === evId.toLowerCase());
       if (duplicate) {
         $('#groupEvId').classList.add('has-error');
@@ -3326,7 +3505,7 @@
     logActivity('🏷️', `Evidence ${evId} linked`, `Attached to Case #${caseId}`);
     showToast(`Evidence ${evId} linked to Case #${caseId}`, 'success');
     closeAllModals();
-    expandedCaseId = caseId; // Keep drawer open
+    expandedCaseId = caseId;
     renderApp();
   });
 
@@ -3351,10 +3530,48 @@
   });
 
   // --------------------------------------------------------------------------
-  // EVENT DELEGATION: TABLE CLICKS (ROW EXPAND, EDIT, DELETE, EVIDENCE REMOVAL)
+  // EVENT LISTENER: INSTANT STATUS DROPDOWN CHANGE
+  // --------------------------------------------------------------------------
+  $('#caseTableBody').addEventListener('change', e => {
+    const target = e.target;
+    if (target.dataset.action === 'quick-status') {
+      const caseId = Number(target.dataset.caseId);
+      const newStatus = target.value;
+      const caseNode = caseList.find(caseId);
+      if (caseNode && caseNode.status !== newStatus) {
+        const oldStatus = caseNode.status;
+        caseNode.status = newStatus;
+        saveToStorage();
+        logActivity('⚡', `Case #${caseId} status updated`, `${oldStatus} → ${newStatus}`);
+        showToast(`Case #${caseId} status changed to "${newStatus}"`, 'success');
+        renderApp();
+      }
+    }
+  });
+
+  // --------------------------------------------------------------------------
+  // EVENT DELEGATION: TABLE CLICKS (ROW EXPAND, STATUS BUTTONS, EDIT, DELETE)
   // --------------------------------------------------------------------------
   $('#caseTableBody').addEventListener('click', e => {
     const target = e.target;
+
+    // Quick Status Workflow Button click inside expanded drawer
+    const setStatusBtn = target.closest('[data-action="set-status"]');
+    if (setStatusBtn) {
+      e.stopPropagation();
+      const caseId = Number(setStatusBtn.dataset.caseId);
+      const newStatus = setStatusBtn.dataset.status;
+      const caseNode = caseList.find(caseId);
+      if (caseNode && caseNode.status !== newStatus) {
+        const oldStatus = caseNode.status;
+        caseNode.status = newStatus;
+        saveToStorage();
+        logActivity('⚡', `Case #${caseId} status updated`, `${oldStatus} → ${newStatus}`);
+        showToast(`Case #${caseId} status updated to "${newStatus}"`, 'success');
+        renderApp();
+      }
+      return;
+    }
 
     // Delete Evidence sub-item
     const delEvBtn = target.closest('[data-action="delete-evidence"]');

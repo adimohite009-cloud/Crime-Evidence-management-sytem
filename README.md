@@ -73,6 +73,7 @@ class EvidenceNode {
    - **Add New Case:** Modal form with inline field validation, required indicator checks, and duplicate Case ID prevention.
    - **Edit Case:** Pre-populated form to update metadata while preserving list structure.
    - **Delete Case:** Confirmation modal detailing the case to be removed before unlinking.
+   - **Interactive Status Workflow:** Change case status directly from the table row via dropdown pills (Open, Under Investigation, Evidence Review, Solved, Closed) or using the one-click workflow buttons inside the expanded case view.
    - **Badges:** Color-coded status badges (Open = Blue, Under Investigation = Amber, Evidence Review = Purple, Closed = Gray, Solved = Green) and priority badges (High = Red, Medium = Amber, Low = Green).
 
 3. **Per-Case Evidence Chain of Custody:**
